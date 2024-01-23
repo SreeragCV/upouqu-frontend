@@ -1,20 +1,21 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import './App.css'
-import Header from './components/Header/Header.jsx'
 import Home from './pages/Home.jsx'
 import Books from './pages/Books.jsx'
 import Contribute from './pages/Contribute.jsx'
+import Login from './components/Login/Login.jsx'
+import RootLayout from './pages/RootLayout.jsx'
+import Signup from './components/Signup/Signup.jsx'
 
 function App() {
 
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Header />,
+      element: <RootLayout />,
       children: [
         {
           index: true,
-          path: '',
           element: <Home/>
         },
         {
@@ -22,8 +23,16 @@ function App() {
           element: <Books/>
         },
         {
-          path: '/contribute',
+          path: 'contribute',
           element: <Contribute/>
+        },
+        {
+          path: 'login',
+          element: <Login/>
+        },
+        {
+          path: 'signup',
+          element: <Signup/>
         }
       ]
     }

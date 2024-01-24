@@ -12,7 +12,6 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
-import classes from './Header.module.css'
 
 const pages = ["home", "books", "contribute"];
 const settings = ["profile", "logout"];

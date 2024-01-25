@@ -1,16 +1,24 @@
-import * as React from "react";
+import { useState } from "react";
 import Card from "@mui/material/Card";
 import { Grid } from "@mui/material";
 import { Form, Link, useActionData } from "react-router-dom";
+import { isEmail, isNotEmpty, hasMinLength } from "../../utils/utils.js";
+import Input from "../Input/Input.jsx";
 
 export default function AuthForm({ signup }) {
-  const inputClass =
-    "rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2  ring-gray-900 outline-0";
-  const labelClass =
-    "block text-gray-600 cursor-text text-sm leading-[140%] font-normal mb-2";
-  const invalidClass =
-    "block text-gray-600 cursor-text text-sm leading-[140%] font-normal text-[#e82d2d] mt-1";
-  const data = useActionData()  
+
+  const data = useActionData();
+  const [enteredValues, setEnteredValues] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  const [didEdit, setDidEdit] = useState({
+    username: false,
+    email: false,
+    password: false,
+  });
 
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center">
@@ -27,48 +35,27 @@ export default function AuthForm({ signup }) {
           </div>
           <Form method="POST" className="flex flex-col gap-3">
             {signup && (
-              <div className="block relative">
-                <label htmlFor="username" className={labelClass}>
-                  Username
-                </label>
-                <input
-                  type="text"
-                  id="username"
-                  name="username"
-                  className={inputClass}
-                />
-                {/* <p className={invalidClass}>invalid username</p> */}
+              <Input
+                type="text"
+                id="username"
+                name="username"
+                label="username"
+              />
+            )}
+            <Input type="email" id="email" name="email" label="email" />
+            <Input
+              type="password"
+              id="password"
+              name="password"
+              label="password"
+            />
+            {data && data.errors && (
+              <div>
+                <a class="text-sm text-[#ff3d3d]" href="#">
+                  Username or Email already exists!
+                </a>
               </div>
             )}
-            <div className="block relative">
-              <label htmlFor="email" className={labelClass}>
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                className={inputClass}
-              />
-              {/* <p className={invalidClass}>invalid username</p> */}
-            </div>
-            <div className="block relative">
-              <label htmlFor="password" className={labelClass}>
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                className={inputClass}
-              />
-              {/* <p className={invalidClass}>invalid username</p> */}
-            </div>
-            {data && data.errors && <div>
-              <a class="text-sm text-[#ff3d3d]" href="#">
-                Username or Email already exists!
-              </a>
-            </div>}
             <button
               type="submit"
               className="bg-[#7747ff] w-max m-auto px-6 py-2 rounded text-white text-sm font-normal"

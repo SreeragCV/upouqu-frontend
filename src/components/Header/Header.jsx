@@ -58,7 +58,9 @@ function Header() {
             </Typography>
           </Link>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box
+            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+          >
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -69,6 +71,7 @@ function Header() {
             >
               <MenuIcon />
             </IconButton>
+            {pages.map((page) => (
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -87,7 +90,6 @@ function Header() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
                 <Link
                   to={page === "home" ? "" : `/${page}`}
                   style={{
@@ -100,8 +102,8 @@ function Header() {
                     <Typography textAlign="center">{page}</Typography>
                   </MenuItem>
                 </Link>
-              ))}
             </Menu>
+              ))}
           </Box>
           <Typography
             variant="h5"
@@ -137,11 +139,13 @@ function Header() {
             ))}
           </Box>
 
-          {true ? <div>
-            <Link to="/login">LOGIN</Link>
-            <span className="gap-4 m-2">/</span>
-            <Link to="/signup">SIGNUP</Link>
-            </div> : (
+          {true ? (
+            <div>
+              <Link to="/login">LOGIN</Link>
+              <span className="gap-4 m-2">/</span>
+              <Link to="/signup">SIGNUP</Link>
+            </div>
+          ) : (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

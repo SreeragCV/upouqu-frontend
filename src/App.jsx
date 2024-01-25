@@ -1,46 +1,44 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import './App.css'
-import Home from './pages/Home.jsx'
-import Books from './pages/Books.jsx'
-import Contribute from './pages/Contribute.jsx'
-import Login from './components/Login/Login.jsx'
-import RootLayout from './pages/RootLayout.jsx'
-import Signup from './components/Signup/Signup.jsx'
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import "./App.css";
+import Home from "./pages/Home.jsx";
+import Books from "./pages/Books.jsx";
+import Contribute from "./pages/Contribute.jsx";
+import Login from "./components/AuthForm/AuthForm.jsx";
+import RootLayout from "./pages/RootLayout.jsx";
+import Signup, { action } from "./pages/Signup.jsx";
 
 function App() {
-
   const router = createBrowserRouter([
     {
-      path: '/',
+      path: "/",
       element: <RootLayout />,
       children: [
         {
           index: true,
-          element: <Home/>
+          element: <Home />,
         },
         {
-          path: 'books',
-          element: <Books/>
+          path: "books",
+          element: <Books />,
         },
         {
-          path: 'contribute',
-          element: <Contribute/>
+          path: "contribute",
+          element: <Contribute />,
         },
         {
-          path: 'login',
-          element: <Login/>
+          path: "login",
+          element: <Login />,
         },
         {
-          path: 'signup',
-          element: <Signup/>
-        }
-      ]
-    }
-  ])
+          path: "signup",
+          element: <Signup />,
+          action: action,
+        },
+      ],
+    },
+  ]);
 
-  return (
-    <RouterProvider router={router} />
-  )
+  return <RouterProvider router={router} />;
 }
 
-export default App
+export default App;

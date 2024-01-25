@@ -2,11 +2,10 @@ import { useState } from "react";
 import Card from "@mui/material/Card";
 import { Grid } from "@mui/material";
 import { Form, Link, useActionData } from "react-router-dom";
-import { isEmail, isNotEmpty, hasMinLength } from "../../utils/utils.js";
+import { isEmail, isNotEmpty, hasMinLength } from "../../utils/validations.js";
 import Input from "../Input/Input.jsx";
 
 export default function AuthForm({ signup }) {
-
   const data = useActionData();
   const [enteredValues, setEnteredValues] = useState({
     username: "",
@@ -19,6 +18,49 @@ export default function AuthForm({ signup }) {
     email: false,
     password: false,
   });
+
+  const usernameIsInvalid =
+    didEdit.username &&
+    !hasMinLength(enteredValues.username, 5) &&
+    isNotEmpty(enteredValues.username);
+  const emailIsInvalid =
+    didEdit.email &&
+    !isEmail(enteredValues.email) &&
+    isNotEmpty(enteredValues.email);
+  const passwordIsInvalid =
+    didEdit.password &&
+    !hasMinLength(enteredValues.password, 6) &&
+    isNotEmpty(enteredValues.password);
+
+  const ifDisable =
+    enteredValues.email === "" ||
+    emailIsInvalid ||
+    enteredValues.password === "" ||
+    passwordIsInvalid ||
+    enteredValues.username === "" ||
+    usernameIsInvalid;
+
+  function handleInputChange(identifier, value) {
+    setEnteredValues((prevValues) => {
+      return {
+        ...prevValues,
+        [identifier]: value,
+      };
+    });
+    setDidEdit((prevEdit) => ({
+      ...prevEdit,
+      [identifier]: false,
+    }));
+  }
+
+  function handleBlur(identifier) {
+    setDidEdit((prevEdit) => ({
+      ...prevEdit,
+      [identifier]: true,
+    }));
+  }
+
+  console.log(enteredValues.username);
 
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center">
@@ -40,14 +82,34 @@ export default function AuthForm({ signup }) {
                 id="username"
                 name="username"
                 label="username"
+                onChange={(e) => handleInputChange("username", e.target.value)}
+                onBlur={() => handleBlur("username")}
+                error={usernameIsInvalid}
+                value={enteredValues.username}
+                message="username must have atleast 5 characters"
               />
             )}
-            <Input type="email" id="email" name="email" label="email" />
+            <Input
+              type="email"
+              id="email"
+              name="email"
+              label="email"
+              onChange={(e) => handleInputChange("email", e.target.value)}
+              onBlur={() => handleBlur("email")}
+              error={emailIsInvalid}
+              value={enteredValues.email}
+              message="enter a valid email address"
+            />
             <Input
               type="password"
               id="password"
               name="password"
               label="password"
+              onChange={(e) => handleInputChange("password", e.target.value)}
+              onBlur={() => handleBlur("password")}
+              error={passwordIsInvalid}
+              value={enteredValues.password}
+              message="password must have 6 characters"
             />
             {data && data.errors && (
               <div>
@@ -58,7 +120,8 @@ export default function AuthForm({ signup }) {
             )}
             <button
               type="submit"
-              className="bg-[#7747ff] w-max m-auto px-6 py-2 rounded text-white text-sm font-normal"
+              className={ifDisable ? "bg-[#1e1043] w-max m-auto px-6 py-2 rounded text-white cursor-not-allowed text-sm font-normal" : "bg-[#5e32d6] w-max m-auto px-6 py-2 rounded text-white text-sm font-normal"}
+              disabled={ifDisable}
             >
               {signup ? "Signup" : "Login"}
             </button>

@@ -32,7 +32,13 @@ export default function AuthForm({ signup }) {
     !hasMinLength(enteredValues.password, 6) &&
     isNotEmpty(enteredValues.password);
 
-  const ifDisable =
+  const ifLoginDisable =
+    enteredValues.email === "" ||
+    emailIsInvalid ||
+    enteredValues.password === "" ||
+    passwordIsInvalid;
+
+  const ifSignupDisable =
     enteredValues.email === "" ||
     emailIsInvalid ||
     enteredValues.password === "" ||
@@ -120,8 +126,12 @@ export default function AuthForm({ signup }) {
             )}
             <button
               type="submit"
-              className={ifDisable ? "bg-[#1e1043] w-max m-auto px-6 py-2 rounded text-white cursor-not-allowed text-sm font-normal" : "bg-[#5e32d6] w-max m-auto px-6 py-2 rounded text-white text-sm font-normal"}
-              disabled={ifDisable}
+              className={ (signup &&
+                ifSignupDisable ) || ifLoginDisable
+                  ? "bg-[#1e1043] w-max m-auto px-6 py-2 rounded text-white cursor-not-allowed text-sm font-normal"
+                  : "bg-[#5e32d6] w-max m-auto px-6 py-2 rounded text-white text-sm font-normal"
+              }
+              disabled={signup ? ifSignupDisable : ifLoginDisable}
             >
               {signup ? "Signup" : "Login"}
             </button>

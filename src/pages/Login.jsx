@@ -1,6 +1,6 @@
 import React from "react";
 import AuthForm from "../components/AuthForm/AuthForm";
-import { json, useActionData } from "react-router-dom";
+import { json, redirect, useActionData } from "react-router-dom";
 
 function Login() {
 
@@ -36,7 +36,9 @@ export async function action({ request, params }) {
       { status: 500 }
     );
   }
-  
-  console.log(response);
-  return response;
+
+  const responseToken = response.headers.get('Authorization');
+  localStorage.setItem('token', responseToken);
+
+  return redirect('/');
 }

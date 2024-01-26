@@ -58,9 +58,7 @@ function Header() {
             </Typography>
           </Link>
 
-          <Box
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-          >
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -71,7 +69,6 @@ function Header() {
             >
               <MenuIcon />
             </IconButton>
-            {pages.map((page) => (
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -90,6 +87,7 @@ function Header() {
                 display: { xs: "block", md: "none" },
               }}
             >
+              {pages.map((page) => (
                 <Link
                   to={page === "home" ? "" : `/${page}`}
                   style={{
@@ -102,8 +100,8 @@ function Header() {
                     <Typography textAlign="center">{page}</Typography>
                   </MenuItem>
                 </Link>
-            </Menu>
               ))}
+            </Menu>
           </Box>
           <Typography
             variant="h5"

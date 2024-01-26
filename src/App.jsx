@@ -5,13 +5,16 @@ import Books from "./pages/Books.jsx";
 import Contribute from "./pages/Contribute.jsx";
 import Login from "./components/AuthForm/AuthForm.jsx";
 import RootLayout from "./pages/RootLayout.jsx";
-import Signup, { action } from "./pages/Signup.jsx";
+import Signup, { action as signUpAction } from "./pages/Signup.jsx";
+import { action as loginAction } from "./pages/Login.jsx";
+import Errors from "./pages/Error.jsx";
 
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
       element: <RootLayout />,
+      errorElement: <Errors/>,
       children: [
         {
           index: true,
@@ -28,11 +31,12 @@ function App() {
         {
           path: "login",
           element: <Login />,
+          action: loginAction
         },
         {
           path: "signup",
           element: <Signup />,
-          action: action,
+          action: signUpAction,
         },
       ],
     },

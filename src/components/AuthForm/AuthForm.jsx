@@ -7,6 +7,8 @@ import Input from "../Input/Input.jsx";
 
 export default function AuthForm({ signup }) {
   const data = useActionData();
+  console.log(data);
+
   const [enteredValues, setEnteredValues] = useState({
     username: "",
     email: "",
@@ -21,7 +23,7 @@ export default function AuthForm({ signup }) {
 
   const usernameIsInvalid =
     didEdit.username &&
-    !hasMinLength(enteredValues.username, 5) &&
+    !hasMinLength(enteredValues.username, 3) &&
     isNotEmpty(enteredValues.username);
   const emailIsInvalid =
     didEdit.email &&
@@ -66,8 +68,6 @@ export default function AuthForm({ signup }) {
     }));
   }
 
-  console.log(enteredValues.username);
-
   return (
     <Grid container direction="row" justifyContent="center" alignItems="center">
       <Card
@@ -90,9 +90,12 @@ export default function AuthForm({ signup }) {
                 label="username"
                 onChange={(e) => handleInputChange("username", e.target.value)}
                 onBlur={() => handleBlur("username")}
-                error={usernameIsInvalid}
+                error={data ? data : usernameIsInvalid}
                 value={enteredValues.username}
-                message="username must have atleast 5 characters"
+                message={
+                  (data && data.username ? data.username : null) ||
+                  (!data &&  "username must have atleast 5 characters")
+                }
               />
             )}
             <Input
@@ -102,9 +105,11 @@ export default function AuthForm({ signup }) {
               label="email"
               onChange={(e) => handleInputChange("email", e.target.value)}
               onBlur={() => handleBlur("email")}
-              error={emailIsInvalid}
+              error={data ? data : emailIsInvalid}
               value={enteredValues.email}
-              message="enter a valid email address"
+              message={
+                (data && data.email ? data.email : null) || (!data && "enter a valid email address")
+              }
             />
             <Input
               type="password"
@@ -113,21 +118,24 @@ export default function AuthForm({ signup }) {
               label="password"
               onChange={(e) => handleInputChange("password", e.target.value)}
               onBlur={() => handleBlur("password")}
-              error={passwordIsInvalid}
+              error={data ? data : passwordIsInvalid}
               value={enteredValues.password}
-              message="password must have 6 characters"
+              message={
+                (data && data.password ? data.password : null) ||
+                (!data && "password must have 6 characters")
+              }
             />
-            {data && data.errors && (
+            {data && data.error_message && (
               <div>
                 <a class="text-sm text-[#ff3d3d]" href="#">
-                  Username or Email already exists!
+                  {data.error_message}
                 </a>
               </div>
             )}
             <button
               type="submit"
-              className={ (signup &&
-                ifSignupDisable ) || ifLoginDisable
+              className={
+                (signup && ifSignupDisable) || ifLoginDisable
                   ? "bg-[#1e1043] w-max m-auto px-6 py-2 rounded text-white cursor-not-allowed text-sm font-normal"
                   : "bg-[#5e32d6] w-max m-auto px-6 py-2 rounded text-white text-sm font-normal"
               }

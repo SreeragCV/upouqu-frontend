@@ -1,18 +1,17 @@
-import React from 'react'
-import AuthForm from '../components/AuthForm/AuthForm';
-import { useActionData } from 'react-router-dom';
+import React from "react";
+import AuthForm from "../components/AuthForm/AuthForm";
+import { json, useActionData } from "react-router-dom";
 
 function Signup() {
-  const data = useActionData();
-  console.log(data);
+ 
   return (
     <div>
-      <AuthForm signup/>
+      <AuthForm signup />
     </div>
-  )
+  );
 }
 
-export default Signup
+export default Signup;
 
 export async function action({ request, params }) {
   const formData = await request.formData();
@@ -21,19 +20,25 @@ export async function action({ request, params }) {
     email: formData.get("email"),
     password: formData.get("password"),
   };
-  console.log(userData);
+  
   const response = await fetch("http://localhost:8080/signup", {
     method: "POST",
     headers: {
       "Content-type": "application/json",
     },
     body: JSON.stringify(userData),
-  })
+  });
 
-  if(!response.ok){
-    console.log('error');
+  if (response.status === 422) {
+    return response;
   }
-  console.log(response);
-    
+
+  if (!response.ok) {
+    throw json(
+      { message: "Request failed..please try again" },
+      { status: 500 }
+    );
+  }
+
   return response;
 }

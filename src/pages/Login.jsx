@@ -1,26 +1,7 @@
-import React, { useEffect, useState } from "react";
 import AuthForm from "../components/AuthForm/AuthForm";
-import { json, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-
-let initialLoad = true;
+import { json } from "react-router-dom";
 
 function Login() {
-  const data = useSelector((state) => state.auth);
-  const navigate = useNavigate(); 
-  const isLoggedIn = data.isLoggedIn
-  
-
-  useEffect(() => {
-    if(isLoggedIn && initialLoad){
-     return navigate('/')
-    }else {
-      initialLoad = false;
-      navigate('/login')
-    }
-  }, [initialLoad, isLoggedIn])
-
-
   return (
     <div>
       <AuthForm />
@@ -45,8 +26,8 @@ export async function action({ request, params }) {
     body: JSON.stringify(userData),
   });
 
-  if(response.status === 401){
-    console.log('username or password incorrect');
+  if (response.status === 401) {
+    console.log("username or password incorrect");
     return response;
   }
   if (!response.ok) {
@@ -60,5 +41,5 @@ export async function action({ request, params }) {
   const resData = response.json();
   console.log(resData);
 
-  return resData
+  return resData;
 }

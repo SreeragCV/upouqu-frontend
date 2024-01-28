@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import { Grid } from "@mui/material";
-import { Form, Link, useActionData, useNavigate } from "react-router-dom";
+import { Form, Link, useActionData, useNavigate, useNavigation } from "react-router-dom";
 import { isEmail, isNotEmpty, hasMinLength } from "../../utils/validations.js";
 import Input from "../Input/Input.jsx";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,14 +12,17 @@ export default function AuthForm({ signup }) {
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
-  const verify = useSelector((state) => state.auth.isVerified);
+  const verify = useSelector((state) => state.auth);
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === 'submitting'
 
+  console.log(isSubmitting);
   console.log(data);
-  // console.log(verify);
+  console.log(verify);
 
   useEffect(() => {
-    if (!verify) {                         //verifying if user already logged in
-      if (data && token) {
+    if (!verify.isVerified) {                         //verifying if user already logged in
+      if (data && data.id && token) {
         const id = data.id;
         dispatch(handleLogin({ id }));
         navigate("/");
@@ -128,7 +131,7 @@ export default function AuthForm({ signup }) {
               error={data ? data : emailIsInvalid}
               value={enteredValues.email}
               message={
-                (data && data.email  ? data.email || data.error : null) ||
+                (data && data.email ? data.email : null) ||
                 (!data && "enter a valid email address")
               }
             />
@@ -142,15 +145,15 @@ export default function AuthForm({ signup }) {
               error={data ? data : passwordIsInvalid}
               value={enteredValues.password}
               message={
-                (data && data.password ? data.password || data.error : null) ||
+                (data && data.password ? data.password : null) ||
                 (!data && "password must have 6 characters")
               }
             />
-            {data && data.error_message || data.error && (
+            {data && data.error_message && (
               <div>
-                <a class="text-sm text-[#ff3d3d]" href="#">
-                  {data.error_message || data.error}
-                </a>
+                <p class="text-sm text-[#ff3d3d]" href="#">
+                  {data.error_message}
+                </p>
               </div>
             )}
             <button
@@ -160,7 +163,7 @@ export default function AuthForm({ signup }) {
                   ? "bg-[#1e1043] w-max m-auto px-6 py-2 rounded text-white cursor-not-allowed text-sm font-normal"
                   : "bg-[#5e32d6] w-max m-auto px-6 py-2 rounded text-white text-sm font-normal"
               }
-              disabled={signup ? ifSignupDisable : ifLoginDisable}
+              disabled={(signup ? ifSignupDisable : ifLoginDisable) || isSubmitting}
             >
               {signup ? "Signup" : "Login"}
             </button>

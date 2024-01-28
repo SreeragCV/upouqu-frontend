@@ -14,9 +14,9 @@ export default function AuthForm({ signup }) {
   const navigate = useNavigate();
   const verify = useSelector((state) => state.auth.isVerified);
 
-  // console.log(data);
+  console.log(data);
   // console.log(verify);
-  
+
   useEffect(() => {
     if (!verify) {                         //verifying if user already logged in
       if (data && token) {
@@ -128,7 +128,7 @@ export default function AuthForm({ signup }) {
               error={data ? data : emailIsInvalid}
               value={enteredValues.email}
               message={
-                (data && data.email ? data.email : null) ||
+                (data && data.email  ? data.email || data.error : null) ||
                 (!data && "enter a valid email address")
               }
             />
@@ -142,14 +142,14 @@ export default function AuthForm({ signup }) {
               error={data ? data : passwordIsInvalid}
               value={enteredValues.password}
               message={
-                (data && data.password ? data.password : null) ||
+                (data && data.password ? data.password || data.error : null) ||
                 (!data && "password must have 6 characters")
               }
             />
-            {data && data.error_message && (
+            {data && data.error_message || data.error && (
               <div>
                 <a class="text-sm text-[#ff3d3d]" href="#">
-                  {data.error_message}
+                  {data.error_message || data.error}
                 </a>
               </div>
             )}

@@ -45,6 +45,10 @@ export async function action({ request, params }) {
     body: JSON.stringify(userData),
   });
 
+  if(response.status === 401){
+    console.log('username or password incorrect');
+    return response;
+  }
   if (!response.ok) {
     throw json(
       { message: "Request failed...please try again" },
@@ -54,6 +58,7 @@ export async function action({ request, params }) {
   const responseToken = response.headers.get("Authorization");
   localStorage.setItem("token", responseToken);
   const resData = response.json();
+  console.log(resData);
 
   return resData
 }

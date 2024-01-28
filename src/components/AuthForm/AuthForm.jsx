@@ -1,13 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import { Grid } from "@mui/material";
-import { Form, Link, useActionData } from "react-router-dom";
+import { Form, Link, useActionData, useNavigate } from "react-router-dom";
 import { isEmail, isNotEmpty, hasMinLength } from "../../utils/validations.js";
 import Input from "../Input/Input.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { handleLogin } from "../../utils/store/AuthSlice.js";
 
 export default function AuthForm({ signup }) {
   const data = useActionData();
-  console.log(data);
+  const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
+  const verify = useSelector((state) => state.auth.isVerified);
+
+  useEffect(() => {
+    if (!verify) {                         //verifying if user already logged in
+      if (data && data.id && token) {
+        const id = data.id;
+        dispatch(handleLogin({ id }));
+        navigate("/");
+      }
+    } else {
+      navigate("/");
+    }
+  }, [verify, data, token]);
 
   const [enteredValues, setEnteredValues] = useState({
     username: "",
@@ -94,7 +111,7 @@ export default function AuthForm({ signup }) {
                 value={enteredValues.username}
                 message={
                   (data && data.username ? data.username : null) ||
-                  (!data &&  "username must have atleast 5 characters")
+                  (!data && "username must have atleast 3 characters")
                 }
               />
             )}
@@ -108,7 +125,8 @@ export default function AuthForm({ signup }) {
               error={data ? data : emailIsInvalid}
               value={enteredValues.email}
               message={
-                (data && data.email ? data.email : null) || (!data && "enter a valid email address")
+                (data && data.email ? data.email : null) ||
+                (!data && "enter a valid email address")
               }
             />
             <Input

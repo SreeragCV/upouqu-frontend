@@ -11,14 +11,18 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { handleLogout } from "../../utils/store/AuthSlice";
 
 const pages = ["home", "books", "contribute"];
-const settings = ["profile", "logout"];
 
 function Header() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const data = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -34,6 +38,11 @@ function Header() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  function handleLogoutButton(){
+    dispatch(handleLogout())
+    return navigate('/')
+  }
 
   return (
     <AppBar position="static" sx={{ backgroundColor: "#080708" }}>
@@ -137,7 +146,7 @@ function Header() {
             ))}
           </Box>
 
-          {true ? (
+          {!data.isVerified ? (
             <div>
               <Link to="/login">LOGIN</Link>
               <span className="gap-4 m-2">/</span>
@@ -166,11 +175,12 @@ function Header() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">Profile</Typography>
                   </MenuItem>
-                ))}
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography onClick={handleLogoutButton} textAlign="center">Logout</Typography>
+                  </MenuItem>
               </Menu>
             </Box>
           )}

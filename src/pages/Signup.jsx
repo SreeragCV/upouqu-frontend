@@ -1,9 +1,8 @@
 import React from "react";
 import AuthForm from "../components/AuthForm/AuthForm";
-import { json, useActionData } from "react-router-dom";
+import { json } from "react-router-dom";
 
 function Signup() {
- 
   return (
     <div>
       <AuthForm signup />
@@ -20,7 +19,7 @@ export async function action({ request, params }) {
     email: formData.get("email"),
     password: formData.get("password"),
   };
-  
+
   const response = await fetch("http://localhost:8080/signup", {
     method: "POST",
     headers: {
@@ -39,6 +38,6 @@ export async function action({ request, params }) {
       { status: 500 }
     );
   }
-
-  return response;
+  const resData = response.json();
+  return resData;
 }

@@ -38,6 +38,9 @@ export async function action({ request, params }) {
       { status: 500 }
     );
   }
-  const resData = response.json();
+  const token = response.headers.get('Authorization');
+  localStorage.setItem('token', token)
+  const resData = await response.json();
+  console.log(resData);
   return resData;
 }

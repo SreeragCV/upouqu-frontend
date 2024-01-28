@@ -14,9 +14,12 @@ export default function AuthForm({ signup }) {
   const navigate = useNavigate();
   const verify = useSelector((state) => state.auth.isVerified);
 
+  // console.log(data);
+  // console.log(verify);
+  
   useEffect(() => {
     if (!verify) {                         //verifying if user already logged in
-      if (data && data.id && token) {
+      if (data && token) {
         const id = data.id;
         dispatch(handleLogin({ id }));
         navigate("/");

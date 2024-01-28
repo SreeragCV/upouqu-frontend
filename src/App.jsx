@@ -15,7 +15,7 @@ import RedirectingPage from "./pages/RedirectingPage.jsx";
 
 function App() {
   const dispatch = useDispatch();
-  const check = useSelector((state) => state.auth);
+  // const check = useSelector((state) => state.auth);
   const checkAuthenticated = useCallback(async () => {
     try {
       const token = localStorage.getItem("token");
@@ -26,7 +26,6 @@ function App() {
           },
         });
         const resData = await response.json();
-        console.log(resData);
         if (!response.ok) {
           console.log("some error occured");
         }
@@ -49,7 +48,7 @@ function App() {
   }, [checkAuthenticated]);
 
 
-  console.log(check);
+  // console.log(check);
 
   const router = createBrowserRouter([
     {

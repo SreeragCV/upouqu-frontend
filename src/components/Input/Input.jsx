@@ -2,7 +2,7 @@ import React from "react";
 
 function Input({ id, label, error, message, ...props }) {
   const inputClass =
-    "rounded border border-gray-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2  ring-gray-900 outline-0";
+    "rounded border border-blue-200 text-sm w-full font-normal leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2  ring-gray-900 outline-0";
   const labelClass =
     "block text-gray-600 cursor-text text-sm leading-[140%] font-normal mb-2";
   const invalidClass =

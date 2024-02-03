@@ -12,10 +12,11 @@ import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { handleLogout, handleVerify } from "../src/utils/store/AuthSlice.js";
 import RedirectingPage from "./pages/RedirectingPage.jsx";
+import Profile from "./pages/Profile.jsx";
 
 function App() {
   const dispatch = useDispatch();
-  // const check = useSelector((state) => state.auth);
+  const check = useSelector((state) => state.auth);
   const checkAuthenticated = useCallback(async () => {
     try {
       const token = localStorage.getItem("token");
@@ -25,27 +26,29 @@ function App() {
             token: token ? token : "",
           },
         });
-        const resData = await response.json();
         if (!response.ok) {
           console.log("some error occured");
+          dispatch(handleLogout());
         }
-        // console.log(resData);
+        const resData = await response.json();
+        console.log(resData);
         if (resData.status === true) {
-          const id = resData.userId;
+          const id = resData.user_id;
           dispatch(handleVerify({id}));
         } else {
           dispatch(handleLogout());
         }
       };
-      fetchData();
+      await fetchData();
     } catch (e) {
-      console.log("error.....!!!");
+      console.log("server error.....!!!", e);
+      dispatch(handleLogout())
     }
   }, [dispatch]);
 
   useEffect(() => {
-    checkAuthenticated();
-  }, [checkAuthenticated]);
+    checkAuthenticated()
+  }, []);
 
 
   // console.log(check);
@@ -77,6 +80,10 @@ function App() {
           path: "signup",
           element: <Signup />,
           action: signUpAction,
+        },
+        {
+          path: "user/:id",
+          element: <Profile/>
         },
         {
           path: 'redirect',

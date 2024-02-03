@@ -21,6 +21,7 @@ function Header() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const data = useSelector((state) => state.auth);
+  const id = useSelector((state) => state.auth.user_id)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -176,7 +177,7 @@ function Header() {
                 onClose={handleCloseUserMenu}
               >
                   <MenuItem onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">Profile</Typography>
+                    <Typography onClick={() => navigate(`/user/${id}`)} textAlign="center">Profile</Typography>
                   </MenuItem>
                   <MenuItem onClick={handleCloseUserMenu}>
                     <Typography onClick={handleLogoutButton} textAlign="center">Logout</Typography>

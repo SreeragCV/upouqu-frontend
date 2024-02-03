@@ -1,0 +1,69 @@
+.row {
+  margin: 5rem;
+  margin-top: 3rem;
+  margin-bottom: 4rem;
+}
+
+.posters {
+    margin-top: 2px;
+  display: flex;
+  overflow-x: scroll;
+}
+
+.poster {
+  max-width: 16rem;
+  margin: 8px;
+  border-radius: 18px;
+  cursor: pointer;
+  transition: 300ms;
+}
+
+.poster:hover{
+    border-radius: 16px;
+    cursor: pointer;
+    transform: scale(.9);
+    box-shadow: 0px 0px 26px 5px  rgba(0, 255, 183, 0.408);
+    background: rgb(103, 151, 255);
+    transition: 300ms;
+}
+
+.title{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.bookTitle{
+    margin-left: 10px;
+}
+
+.posters::-webkit-scrollbar {
+  display: none;
+}
+
+@media screen and (max-width: 1224px) {
+  .poster {
+    max-width: 12rem;
+  }
+  .row {
+    margin: 3rem;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .poster {
+    max-width: 9rem;
+  }
+  .row {
+    margin: 2rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .poster {
+    max-width: 7rem;
+  }
+  .row {
+    margin: 1rem;
+  }
+}

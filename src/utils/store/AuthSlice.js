@@ -7,24 +7,24 @@ const authSlice = createSlice({
   initialState: {
     isLoggedIn: true,
     isVerified: true,
-    userId: null,
+    user_id: null,
   },
   reducers: {
     handleLogin(state, action) {
       state.isLoggedIn = true;
       state.isVerified = true;
-      state.userId = action.payload.id;
+      state.user_id = action.payload.id;
     },
     handleLogout(state) {
       state.isLoggedIn = false;
       state.isVerified = false;
-      state.userId = null;
+      state.user_id = null;
       localStorage.removeItem("token");
     },
     handleVerify(state, action){
       state.isLoggedIn = true;
       state.isVerified = true;
-      state.userId = action.payload.id;
+      state.user_id = action.payload.id;
     }
   },
 });

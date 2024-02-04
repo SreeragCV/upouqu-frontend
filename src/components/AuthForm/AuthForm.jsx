@@ -12,6 +12,9 @@ import { isEmail, isNotEmpty, hasMinLength } from "../../utils/validations.js";
 import Input from "../Input/Input.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { handleLogin } from "../../utils/store/AuthSlice.js";
+import loginImage from "../../assets/bg7.jpg";
+import signupImage from "../../assets/bg4.jpg";
+
 
 export default function AuthForm({ signup }) {
   const data = useActionData();
@@ -22,9 +25,9 @@ export default function AuthForm({ signup }) {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
-  console.log(isSubmitting);
-  console.log(data);
-  console.log(verify);
+  // console.log(isSubmitting);
+  // console.log(data);
+  // console.log(verify);
 
   useEffect(() => {
     if (!verify.isVerified) {
@@ -99,14 +102,30 @@ export default function AuthForm({ signup }) {
   }
 
   return (
+    <body
+      style={{
+        backgroundImage: signup ? `url(${signupImage})` : `url(${loginImage})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+      }}
+    >
       <Grid
         container
         direction="row"
         justifyContent="center"
         alignItems="center"
+        paddingBottom={signup ? "10.2rem" : "11.5rem"}
+        overflow="hidden"
       >
         <Card
-          sx={{ maxWidth: 345, justifyContent: "center", marginTop: "13rem" }}
+          sx={{
+            maxWidth: 345,
+            justifyContent: "center",
+            marginTop: signup ? "10rem" : "12rem",
+            borderRadius: '18px',
+            boxShadow: "0px 0px 26px 5px  rgba(0, 255, 183, 0.508);"
+          }}
         >
           <div className="max-w-md relative flex flex-col p-10 pb-5 text-black background-color: rgb(224 242 254)">
             <div className="text-2xl font-bold mb-2 text-[#9c77ff] text-center">
@@ -202,5 +221,6 @@ export default function AuthForm({ signup }) {
           </div>
         </Card>
       </Grid>
+    </body>
   );
 }

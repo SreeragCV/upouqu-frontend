@@ -13,11 +13,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleLogout, handleVerify } from "../src/utils/store/AuthSlice.js";
 import RedirectingPage from "./pages/RedirectingPage.jsx";
 import Profile from "./pages/Profile.jsx";
+import BookDetails from "./pages/BookDetails.jsx";
 
 function App() {
   const dispatch = useDispatch();
   const check = useSelector((state) => state.auth);
-  const checkAuthenticated = useCallback(async () => {
+  const checkAuthenticated = useCallback( () => {
     try {
       const token = localStorage.getItem("token");
       const fetchData = async () => {
@@ -31,7 +32,6 @@ function App() {
           dispatch(handleLogout());
         }
         const resData = await response.json();
-        console.log(resData);
         if (resData.status === true) {
           const id = resData.user_id;
           dispatch(handleVerify({id}));
@@ -39,7 +39,7 @@ function App() {
           dispatch(handleLogout());
         }
       };
-      await fetchData();
+      fetchData()
     } catch (e) {
       console.log("server error.....!!!", e);
       dispatch(handleLogout())
@@ -83,7 +83,11 @@ function App() {
         },
         {
           path: "user/:id",
-          element: <Profile/>
+          element: <Profile/>,
+        },
+        {
+          path: "books/:id",
+          element: <BookDetails/>
         },
         {
           path: 'redirect',

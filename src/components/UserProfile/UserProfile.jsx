@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import profile from '../../assets/profile.png'
+import { json, useNavigate, useParams } from "react-router-dom";
+import classes from "./UserProfile.module.css";
 
 function UserProfile() {
   const token = localStorage.getItem("token");
   const params = useParams();
   const id = params.id;
   const [fetchUserData, setFetchUserData] = useState({});
+  const isVerified = useSelector((state) => state.auth.isVerified)
+  const navigate = useNavigate();
+
+  if(!isVerified){
+    throw json({
+      message: 'Error Buddy'
+    }, {status: 401})
+  }
 
   useEffect(() => {
     try {
-        console.log('addadas');
       const fetchUser = async () => {
         const response = await fetch(`http://localhost:8080/user/${id}`, {
           headers: {
@@ -18,16 +27,28 @@ function UserProfile() {
           },
         });
         if (!response.ok) {
-            console.log("error");
+          console.log("error");
         }
-        const resData = await response.json()
-        setFetchUserData(resData)
+        if(response.status === 401 || response.status === 400){
+        
+        }
+        const resData = await response.json();
+        setFetchUserData(resData);
       };
       fetchUser();
-    } catch (e) {}
+    } catch (e) {
+      console.log("server error: ", e);
+    }
   }, []);
 
-  return <div>{fetchUserData.username}</div>;
+  return (
+    <div className={classes.container}>
+      <div className={classes.dp_name}>
+        <img className={classes.avatar} src={profile} />
+        <h1 className={classes.username}>{fetchUserData.username}</h1>
+      </div>
+    </div>
+  );
 }
 
 export default UserProfile;

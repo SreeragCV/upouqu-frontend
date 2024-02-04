@@ -11,6 +11,19 @@ function Errors() {
   let title = 'An Error Occurred!'
   let message = 'Something went wrong!'
 
+  if(error.status === 404){
+    title = "Page not found"
+    message = "Please try again..."
+  }
+  if(error.status === 401 || error.status === 402){
+    title = "Not Authorized"
+    message = "Please login/signup to continue"
+  }
+  if(error.status === 500){
+    title = "Server Error"
+    message = "Please try again..."
+  }
+
   return (
     <>
     <Header/>

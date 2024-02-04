@@ -46,21 +46,22 @@ function Header() {
   }
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "#080708" }}>
+    <AppBar position="sticky" sx={{background:'black'}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Link to="/" style={{ textDecoration: "none" }}>
             <Typography
-              variant="h5"
+              variant="h6"
               noWrap
               component="a"
               sx={{
                 mr: 2,
                 display: { xs: "none", md: "flex" },
-                fontFamily: "monospace",
+                fontFamily:`'Quicksand', 'sans-serif'`,
                 fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "white",
+                fontSize:'21px',
+                letterSpacing: ".2rem",
+                color: "darkgoldenrod",
                 textDecoration: "none",
               }}
             >
@@ -104,6 +105,7 @@ function Header() {
                     textDecoration: "none",
                     color: "black",
                     textAlign: "center",
+                    fontFamily: `'Quicksand', sans-serif`
                   }}
                 >
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
@@ -121,10 +123,11 @@ function Header() {
               mr: 2,
               display: { xs: "flex", md: "none" },
               flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
+              fontFamily: `'Quicksand', sans-serif`,
+              fontWeight: 600,
+              // fontSize:'22px' ,
               letterSpacing: ".3rem",
-              color: "inherit",
+              color: "goldenrod",
               textDecoration: "none",
             }}
           >
@@ -139,7 +142,7 @@ function Header() {
                 <Button
                   key={page}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
+                  sx={{ my: 2, color: "white", display: "block", fontFamily: `'Quicksand', sans-serif`, fontSize:'15px' }}
                 >
                   {page}
                 </Button>
@@ -148,7 +151,7 @@ function Header() {
           </Box>
 
           {!data.isVerified ? (
-            <div>
+            <div style={{fontFamily: `'Quicksand', sans-serif`}}>
               <Link to="/login">LOGIN</Link>
               <span className="gap-4 m-2">/</span>
               <Link to="/signup">SIGNUP</Link>
@@ -177,10 +180,10 @@ function Header() {
                 onClose={handleCloseUserMenu}
               >
                   <MenuItem onClick={handleCloseUserMenu}>
-                    <Typography onClick={() => navigate(`/user/${id}`)} textAlign="center">Profile</Typography>
+                    <Typography style={{fontFamily: `'Quicksand', sans-serif`, fontWeight:"700"}} onClick={() => navigate(`/user/${id}`)} textAlign="center">Profile</Typography>
                   </MenuItem>
                   <MenuItem onClick={handleCloseUserMenu}>
-                    <Typography onClick={handleLogoutButton} textAlign="center">Logout</Typography>
+                    <Typography style={{fontFamily: `'Quicksand', sans-serif`, fontWeight:"700"}} onClick={handleLogoutButton} textAlign="center">Logout</Typography>
                   </MenuItem>
               </Menu>
             </Box>

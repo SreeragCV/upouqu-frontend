@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { handleLogout } from "../../utils/store/AuthSlice";
+import cartImage from "../../assets/shopping-cart.png";
 
 const pages = ["home", "books", "contribute"];
 
@@ -21,7 +22,7 @@ function Header() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const data = useSelector((state) => state.auth);
-  const id = useSelector((state) => state.auth.user_id)
+  const id = useSelector((state) => state.auth.user_id);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -40,13 +41,13 @@ function Header() {
     setAnchorElUser(null);
   };
 
-  function handleLogoutButton(){
-    dispatch(handleLogout())
-    return navigate('/')
+  function handleLogoutButton() {
+    dispatch(handleLogout());
+    return navigate("/");
   }
 
   return (
-    <AppBar position="sticky" sx={{background:'black'}}>
+    <AppBar position="fixed" sx={{ background: "black" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Link to="/" style={{ textDecoration: "none" }}>
@@ -57,9 +58,9 @@ function Header() {
               sx={{
                 mr: 2,
                 display: { xs: "none", md: "flex" },
-                fontFamily:`'Quicksand', 'sans-serif'`,
+                fontFamily: `'Quicksand', 'sans-serif'`,
                 fontWeight: 700,
-                fontSize:'21px',
+                fontSize: "21px",
                 letterSpacing: ".2rem",
                 color: "darkgoldenrod",
                 textDecoration: "none",
@@ -105,7 +106,7 @@ function Header() {
                     textDecoration: "none",
                     color: "black",
                     textAlign: "center",
-                    fontFamily: `'Quicksand', sans-serif`
+                    fontFamily: `'Quicksand', sans-serif`,
                   }}
                 >
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
@@ -142,7 +143,13 @@ function Header() {
                 <Button
                   key={page}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block", fontFamily: `'Quicksand', sans-serif`, fontSize:'15px' }}
+                  sx={{
+                    my: 2,
+                    color: "white",
+                    display: "block",
+                    fontFamily: `'Quicksand', sans-serif`,
+                    fontSize: "15px",
+                  }}
                 >
                   {page}
                 </Button>
@@ -151,7 +158,7 @@ function Header() {
           </Box>
 
           {!data.isVerified ? (
-            <div style={{fontFamily: `'Quicksand', sans-serif`}}>
+            <div style={{ fontFamily: `'Quicksand', sans-serif` }}>
               <Link to="/login">LOGIN</Link>
               <span className="gap-4 m-2">/</span>
               <Link to="/signup">SIGNUP</Link>
@@ -163,6 +170,10 @@ function Header() {
                   <Avatar src="/broken-image.jpg" />
                 </IconButton>
               </Tooltip>
+                <IconButton size="medium" aria-haspopup="true" color="inherit">
+                  <img className="ml-2" width="38px" src={cartImage} alt="cart"/>
+                  <p style={{ fontSize: "18px", marginBottom: "24px" }}>1</p>
+                </IconButton>
               <Menu
                 sx={{ mt: "45px" }}
                 id="menu-appbar"
@@ -179,12 +190,30 @@ function Header() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                  <MenuItem onClick={handleCloseUserMenu}>
-                    <Typography style={{fontFamily: `'Quicksand', sans-serif`, fontWeight:"700"}} onClick={() => navigate(`/user/${id}`)} textAlign="center">Profile</Typography>
-                  </MenuItem>
-                  <MenuItem onClick={handleCloseUserMenu}>
-                    <Typography style={{fontFamily: `'Quicksand', sans-serif`, fontWeight:"700"}} onClick={handleLogoutButton} textAlign="center">Logout</Typography>
-                  </MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography
+                    style={{
+                      fontFamily: `'Quicksand', sans-serif`,
+                      fontWeight: "700",
+                    }}
+                    onClick={() => navigate(`/user/${id}`)}
+                    textAlign="center"
+                  >
+                    Profile
+                  </Typography>
+                </MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography
+                    style={{
+                      fontFamily: `'Quicksand', sans-serif`,
+                      fontWeight: "700",
+                    }}
+                    onClick={handleLogoutButton}
+                    textAlign="center"
+                  >
+                    Logout
+                  </Typography>
+                </MenuItem>
               </Menu>
             </Box>
           )}

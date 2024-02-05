@@ -115,14 +115,14 @@ export default function AuthForm({ signup }) {
         direction="row"
         justifyContent="center"
         alignItems="center"
-        paddingBottom={signup ? "10.2rem" : "11.5rem"}
+        paddingBottom={signup ? "10.6rem" : "11.8rem"}
         overflow="hidden"
       >
         <Card
           sx={{
             maxWidth: 345,
             justifyContent: "center",
-            marginTop: signup ? "10rem" : "12rem",
+            marginTop: signup ? "14rem" : "16rem",
             borderRadius: '18px',
             boxShadow: "0px 0px 26px 5px  rgba(0, 255, 183, 0.508);"
           }}

@@ -170,7 +170,7 @@ function Header() {
                   <Avatar src="/broken-image.jpg" />
                 </IconButton>
               </Tooltip>
-                <IconButton size="medium" aria-haspopup="true" color="inherit">
+                <IconButton sx={{display: { xs: "none", md:"inline-flex" } }} size="medium" aria-haspopup="true" color="inherit">
                   <img className="ml-2" width="38px" src={cartImage} alt="cart"/>
                   <p style={{ fontSize: "18px", marginBottom: "24px" }}>1</p>
                 </IconButton>

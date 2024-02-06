@@ -3,6 +3,15 @@ import axios from "axios";
 import Errors from "../../pages/Error";
 import { isNumber } from "../../utils/validations";
 
+const inputStyle =
+  "bg-gray-700 text-gray-200 border-0 rounded-md p-3 mt-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150";
+const disabledStyle =
+  "bg-gradient-to-r from-indigo-950 to-blue-500 text-white font-bold py-2 px-4 rounded-md mt-6 cursor-not-allowed";
+const submitStyle =
+  "bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md mt-6 hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150";
+const fileStyle =
+  "bg-gray-700 mt-1 text-gray-200 border-0 rounded-md p-3 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150";
+
 function BookForm() {
   const [name, setName] = useState("");
   const [genre, setGenre] = useState("");
@@ -90,8 +99,6 @@ function BookForm() {
     return <Errors />;
   }
 
-  console.log(fileError);
-
   return (
     <div className="flex flex-col items-center justify-center h-screen dark mt-6 mb-0">
       <div className="w-full max-w-md bg-gray-800 rounded-lg shadow-md p-6">
@@ -102,7 +109,7 @@ function BookForm() {
           <input
             name="book_name"
             placeholder="Book Name"
-            className="bg-gray-700 text-gray-200 border-0 rounded-md p-3  focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+            className={inputStyle}
             type="text"
             onChange={(e) => {
               setName(e.target.value);
@@ -122,7 +129,7 @@ function BookForm() {
           <select
             name="genre"
             placeholder="genre"
-            className="bg-gray-700 text-gray-200 mt-4 border-0 rounded-md p-3 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+            className={inputStyle}
             type="text"
             onChange={(e) => {
               setGenre(e.target.value);
@@ -148,7 +155,7 @@ function BookForm() {
           <input
             name="price"
             placeholder="Price"
-            className="bg-gray-700 text-gray-200 border-0 rounded-md p-3 mt-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+            className={inputStyle}
             type="text"
             onChange={(e) => {
               setPrice(e.target.value);
@@ -167,7 +174,7 @@ function BookForm() {
 
           <textarea
             placeholder="Description"
-            className="bg-gray-700 text-gray-200 border-0 rounded-md p-3 mt-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+            className={inputStyle}
             name="description"
             onChange={(e) => {
               setDescription(e.target.value);
@@ -193,7 +200,7 @@ function BookForm() {
             name="book"
             id="book"
             placeholder="book"
-            className="bg-gray-700 text-gray-200 border-0 rounded-md p-3 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+            className={fileStyle}
             type="file"
             onChange={(e) => setBookPdf(e.target.files[0])}
           />
@@ -208,7 +215,7 @@ function BookForm() {
             id="image"
             name="image"
             placeholder="image"
-            className="bg-gray-700 text-gray-200 border-0 rounded-md p-3 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150"
+            className={fileStyle}
             type="file"
             onChange={(e) => setImage(e.target.files[0])}
           />
@@ -217,7 +224,7 @@ function BookForm() {
           ) : null}
 
           <button
-            className="bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md mt-6 hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150"
+            className={disableButton ? disabledStyle : submitStyle}
             type="submit"
             disabled={disableButton}
           >

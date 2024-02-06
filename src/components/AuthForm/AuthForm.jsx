@@ -8,13 +8,12 @@ import {
   useNavigate,
   useNavigation,
 } from "react-router-dom";
-import { isEmail, isNotEmpty, hasMinLength } from "../../utils/validations.js";
+import { isEmail, hasMinLength } from "../../utils/validations.js";
 import Input from "../Input/Input.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { handleLogin } from "../../utils/store/AuthSlice.js";
 import loginImage from "../../assets/bg7.jpg";
 import signupImage from "../../assets/bg4.jpg";
-
 
 export default function AuthForm({ signup }) {
   const data = useActionData();
@@ -55,17 +54,10 @@ export default function AuthForm({ signup }) {
   });
 
   const usernameIsInvalid =
-    didEdit.username &&
-    !hasMinLength(enteredValues.username, 3) &&
-    isNotEmpty(enteredValues.username);
-  const emailIsInvalid =
-    didEdit.email &&
-    !isEmail(enteredValues.email) &&
-    isNotEmpty(enteredValues.email);
+    didEdit.username && !hasMinLength(enteredValues.username, 3);
+  const emailIsInvalid = didEdit.email && !isEmail(enteredValues.email);
   const passwordIsInvalid =
-    didEdit.password &&
-    !hasMinLength(enteredValues.password, 6) &&
-    isNotEmpty(enteredValues.password);
+    didEdit.password && !hasMinLength(enteredValues.password, 6);
 
   const ifLoginDisable =
     enteredValues.email === "" ||
@@ -123,8 +115,8 @@ export default function AuthForm({ signup }) {
             maxWidth: 345,
             justifyContent: "center",
             marginTop: signup ? "14rem" : "16rem",
-            borderRadius: '18px',
-            boxShadow: "0px 0px 26px 5px  rgba(0, 255, 183, 0.508);"
+            borderRadius: "18px",
+            boxShadow: "0px 0px 26px 5px  rgba(0, 255, 183, 0.508);",
           }}
         >
           <div className="max-w-md relative flex flex-col p-10 pb-5 text-black background-color: rgb(224 242 254)">

@@ -142,11 +142,24 @@ function BookForm() {
             }}
             onBlur={() => handleBlur("genre")}
           >
-            <option value="">--genre--</option>
-            <option value="horror">horror</option>
-            <option value="comedy">comdey</option>
-            <option value="psychology">psychology</option>
-            <option value="philosophy">philosophy</option>
+            <option value="">-Genre-</option>
+            <option value="horror">Horror</option>
+            <option value="comedy">Comdey</option>
+            <option value="psychology">Psychology</option>
+            <option value="philosophy">Philosophy</option>
+            <option value="humor">Humor</option>
+            <option value="poetry">Poetry</option>
+            <option value="mystery">Mystery</option>
+            <option value="short story">Short Story</option>
+            <option value="science fiction">Science Fiction</option>
+            <option value="fiction">Fiction</option>
+            <option value="diary">Diary</option>
+            <option value="memoir">Memoir</option>
+            <option value="drama">Drama</option>
+            <option value="spirituality">Spirituality</option>
+            <option value="romance">Romance</option>
+            <option value="thriller">Thriller</option>
+            <option value="biography">Biography</option>
           </select>
           {genreIsInvalid ? (
             <p className="mt-1 text-sm text-red-500">Enter a valid genre</p>
@@ -169,7 +182,7 @@ function BookForm() {
             onBlur={() => handleBlur("price")}
           />
           {priceIsInvalid ? (
-            <p className="mt-1 text-sm text-red-500">Price must be a number</p>
+            <p className="mt-1 text-sm text-red-500">Price must be a number (Enter 0 if not selling for a price)</p>
           ) : null}
 
           <textarea

@@ -14,10 +14,11 @@ import { handleLogout, handleVerify } from "../src/utils/store/AuthSlice.js";
 import RedirectingPage from "./pages/RedirectingPage.jsx";
 import Profile from "./pages/Profile.jsx";
 import BookDetails from "./pages/BookDetails.jsx";
+import AdminPage from "./pages/AdminPage.jsx";
 
 function App() {
   const dispatch = useDispatch();
-  const check = useSelector((state) => state.auth);
+  // const check = useSelector((state) => state.auth);
   const checkAuthenticated = useCallback( () => {
     try {
       const token = localStorage.getItem("token");
@@ -92,6 +93,10 @@ function App() {
         {
           path: 'redirect',
           element: <RedirectingPage/>
+        },
+        {
+          path: 'admin-panel',
+          element: <AdminPage/>
         }
       ],
     },

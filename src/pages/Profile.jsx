@@ -29,7 +29,7 @@ function Profile() {
           console.log("error");
         }
         if(response.status === 401 || response.status === 400){
-        
+
         }
         const resData = await response.json();
         setFetchUserData(resData);
@@ -39,6 +39,8 @@ function Profile() {
       console.log("server error: ", e);
     }
   }, []);
+
+  console.log(fetchUserData);
 
   return (
     <div>

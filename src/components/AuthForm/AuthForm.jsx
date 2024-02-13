@@ -94,7 +94,7 @@ export default function AuthForm({ signup }) {
   }
 
   return (
-    <body
+    <div
       style={{
         backgroundImage: signup ? `url(${signupImage})` : `url(${loginImage})`,
         backgroundSize: "cover",
@@ -213,6 +213,6 @@ export default function AuthForm({ signup }) {
           </div>
         </Card>
       </Grid>
-    </body>
+    </div>
   );
 }

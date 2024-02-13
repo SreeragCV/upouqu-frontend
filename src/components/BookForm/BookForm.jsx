@@ -100,8 +100,10 @@ function BookForm() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen dark mt-6 mb-0">
-      <div className="w-full max-w-md bg-gray-800 rounded-lg shadow-md p-6">
+    <div
+      className="flex flex-col items-center justify-center h-screen dark"
+    >
+      <div className="w-full max-w-md bg-gray-800 rounded-lg shadow-md p-6 mt-20">
         <h2 className="text-2xl font-bold text-gray-200 mb-4">
           Submit your book!
         </h2>
@@ -182,7 +184,9 @@ function BookForm() {
             onBlur={() => handleBlur("price")}
           />
           {priceIsInvalid ? (
-            <p className="mt-1 text-sm text-red-500">Price must be a number (Enter 0 if not selling for a price)</p>
+            <p className="mt-1 text-sm text-red-500">
+              Price must be a number (Enter 0 if not selling for a price)
+            </p>
           ) : null}
 
           <textarea

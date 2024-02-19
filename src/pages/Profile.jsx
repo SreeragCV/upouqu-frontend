@@ -2,6 +2,7 @@ import UserProfile from '../components/UserProfile/UserProfile'
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { json, useParams } from "react-router-dom";
+import CustomError from './CustomError';
 
 function Profile() {
 
@@ -9,6 +10,7 @@ function Profile() {
   const params = useParams();
   const id = params.id;
   const [fetchUserData, setFetchUserData] = useState({});
+  const [error, setError] = useState();
   const isVerified = useSelector((state) => state.auth.isVerified)
 
   if(!isVerified){
@@ -25,12 +27,21 @@ function Profile() {
             token: token,
           },
         });
-        if (!response.ok) {
-          console.log("error");
+        let errors = {}
+        if (response.status === 500) {
+          errors.title = 'ERROR!!!!'
+          errors.message = 'Please try again..' 
         }
-        if(response.status === 401 || response.status === 400){
+        if(response.status === 404){
+          console.log('404');
+          errors.title = 'No user found'
+          errors.message = 'Please try again'
+        }
 
+        if(Object.keys(errors).length > 0){
+           setError(errors)
         }
+
         const resData = await response.json();
         setFetchUserData(resData);
       };
@@ -42,9 +53,13 @@ function Profile() {
 
   console.log(fetchUserData);
 
+  if(error && error.message && error.title){
+    return <CustomError title={error.title} message={error.message}/>
+  }
+
   return (
     <div>
-      <UserProfile userData={fetchUserData}/>
+      {!error && <UserProfile userData={fetchUserData}/>}
     </div>
   )
 }

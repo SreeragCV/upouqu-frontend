@@ -16,7 +16,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleLogout } from "../../utils/store/AuthSlice";
 import cartImage from "../../assets/shopping-cart.png";
 
-const pages = ["home", "books", "contribute"];
 
 function Header() {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -25,7 +24,12 @@ function Header() {
   const id = useSelector((state) => state.auth.user_id);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  let pages = ["home", "books", "contribute"];
+  if(data.role === 'super-admin'){
+     pages = ["home", "books", "contribute", "dashboard"];
+  }
+  
+  // console.log(data);
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -101,7 +105,12 @@ function Header() {
             >
               {pages.map((page) => (
                 <Link
-                  to={page === "home" ? "" : `/${page}`}
+                  to={
+                    (page === "home" && "") ||
+                    (page === "dashboard" && "admin-panel") ||
+                    (page === "books" && "books") ||
+                    (page === "contribute" && "contribute")
+                  }
                   style={{
                     textDecoration: "none",
                     color: "black",
@@ -137,7 +146,12 @@ function Header() {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Link
-                to={page === "home" ? "" : `/${page}`}
+                to={
+                  (page === "home" && "") ||
+                  (page === "dashboard" && "admin-panel") ||
+                  (page === "books" && "books") ||
+                  (page === "contribute" && "contribute")
+                }
                 style={{ textDecoration: "none" }}
               >
                 <Button
@@ -170,10 +184,15 @@ function Header() {
                   <Avatar src="/broken-image.jpg" />
                 </IconButton>
               </Tooltip>
-                <IconButton sx={{display: { xs: "none", md:"inline-flex" } }} size="medium" aria-haspopup="true" color="inherit">
-                  <img className="ml-2" width="38px" src={cartImage} alt="cart"/>
-                  <p style={{ fontSize: "18px", marginBottom: "24px" }}>1</p>
-                </IconButton>
+              <IconButton
+                sx={{ display: { xs: "none", md: "inline-flex" } }}
+                size="medium"
+                aria-haspopup="true"
+                color="inherit"
+              >
+                <img className="ml-2" width="38px" src={cartImage} alt="cart" />
+                <p style={{ fontSize: "18px", marginBottom: "24px" }}>1</p>
+              </IconButton>
               <Menu
                 sx={{ mt: "45px" }}
                 id="menu-appbar"
@@ -202,6 +221,20 @@ function Header() {
                     Profile
                   </Typography>
                 </MenuItem>
+                {data.role === "super-admin" && (
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography
+                      style={{
+                        fontFamily: `'Quicksand', sans-serif`,
+                        fontWeight: "700",
+                      }}
+                      onClick={() => navigate(`/admin-panel`)}
+                      textAlign="center"
+                    >
+                      Dashboard
+                    </Typography>
+                  </MenuItem>
+                )}
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Typography
                     style={{

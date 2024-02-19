@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Errors from "../../pages/Error";
 import { isNumber } from "../../utils/validations";
+import { useTheme } from "@mui/material/styles";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 const inputStyle =
   "bg-gray-700 text-gray-200 border-0 rounded-md p-3 mt-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150";
@@ -12,30 +17,85 @@ const submitStyle =
 const fileStyle =
   "bg-gray-700 mt-1 text-gray-200 border-0 rounded-md p-3 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150";
 
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+const genres = [
+  "Psychology",
+  "Thriller",
+  "Novel",
+  "Short Story",
+  "Philosophy",
+  "Literature",
+  "History",
+  "Romance",
+  "Mystery",
+  "Fiction",
+  "Poetry",
+  "Biography",
+  "Action",
+  "Horror",
+  "Science Fiction",
+  "Fantasy",
+];
+
+function getStyles(name, genreName, theme) {
+  return {
+    fontWeight:
+      genreName.indexOf(name) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
+  };
+}
+
 function BookForm() {
   const [name, setName] = useState("");
-  const [genre, setGenre] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
   const [bookPdf, setBookPdf] = useState("");
   const [serverError, setServerError] = useState("");
   const [fileError, setFileError] = useState();
+  const [genreName, setGenreName] = useState([]);
   const [didEdit, setDidEdit] = useState({
     name: false,
     genre: false,
     price: false,
     description: false,
   });
+  const theme = useTheme();
+
+  const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setGenreName(typeof value === "string" ? value.split(",") : value);
+    setDidEdit((prevEdit) => {
+      return {
+        ...prevEdit,
+        genreName: false,
+      };
+    });
+  };
+
+  console.log(genreName);
 
   const nameIsInvalid = didEdit.name && name === "";
-  const genreIsInvalid = didEdit.genre && genre === "";
-  const priceIsInvalid = didEdit.price && !isNumber(price);
+  const genreIsInvalid = didEdit.genre && genreName.length <= 0;
+  const priceIsInvalid = didEdit.price && price === "" || !isNumber(price);
   const descriptionIsInvalid = didEdit.description && description === "";
 
   const disableButton =
     name === "" ||
-    genre === "" ||
+    genreName.length <= 0 ||
     price === "" ||
     description === "" ||
     !isNumber(price);
@@ -62,7 +122,7 @@ function BookForm() {
 
       const formData = new FormData();
       formData.append("book_name", name);
-      formData.append("genre", genre);
+      formData.append("genre", genreName);
       formData.append("price", price);
       formData.append("description", description);
       formData.append("image", image);
@@ -96,13 +156,11 @@ function BookForm() {
   }
 
   if (serverError) {
-    return <Errors />;
+    return <CustomError />;
   }
 
   return (
-    <div
-      className="flex flex-col items-center justify-center h-screen dark"
-    >
+    <div className="flex flex-col items-center justify-center h-screen dark">
       <div className="w-full max-w-md bg-gray-800 rounded-lg shadow-md p-6 mt-20">
         <h2 className="text-2xl font-bold text-gray-200 mb-4">
           Submit your book!
@@ -128,41 +186,37 @@ function BookForm() {
             <p className="mt-1 text-sm text-red-500">Enter a valid book name</p>
           ) : null}
 
-          <select
-            name="genre"
-            placeholder="genre"
-            className={inputStyle}
-            type="text"
-            onChange={(e) => {
-              setGenre(e.target.value);
-              setDidEdit((prevEdit) => {
-                return {
-                  ...prevEdit,
-                  genre: false,
-                };
-              });
-            }}
-            onBlur={() => handleBlur("genre")}
-          >
-            <option value="">-Genre-</option>
-            <option value="horror">Horror</option>
-            <option value="comedy">Comdey</option>
-            <option value="psychology">Psychology</option>
-            <option value="philosophy">Philosophy</option>
-            <option value="humor">Humor</option>
-            <option value="poetry">Poetry</option>
-            <option value="mystery">Mystery</option>
-            <option value="short story">Short Story</option>
-            <option value="science fiction">Science Fiction</option>
-            <option value="fiction">Fiction</option>
-            <option value="diary">Diary</option>
-            <option value="memoir">Memoir</option>
-            <option value="drama">Drama</option>
-            <option value="spirituality">Spirituality</option>
-            <option value="romance">Romance</option>
-            <option value="thriller">Thriller</option>
-            <option value="biography">Biography</option>
-          </select>
+          <div className="mt-4">
+            <FormControl style={{width: '400px'}}>
+              <InputLabel
+                style={{ color: "rgb(229, 231, 235, .5)" }}
+                id="demo-multiple-name-label"
+              >
+                Genre
+              </InputLabel>
+              <Select
+                className="bg-gray-700"
+                labelId="demo-multiple-name-label"
+                id="demo-multiple-name"
+                multiple
+                value={genreName}
+                onChange={handleChange}
+                input={<OutlinedInput label="Name" />}
+                MenuProps={MenuProps}
+                onBlur={() => handleBlur("genre")}
+              >
+                {genres.map((genre) => (
+                  <MenuItem
+                    key={genre}
+                    value={genre}
+                    style={getStyles(genre, genreName, theme)}
+                  >
+                    {genre}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
           {genreIsInvalid ? (
             <p className="mt-1 text-sm text-red-500">Enter a valid genre</p>
           ) : null}

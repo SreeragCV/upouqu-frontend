@@ -33,7 +33,9 @@ export default function AuthForm({ signup }) {
       //verifying if user already logged in
       if (data && data.id && token) {
         const id = data.id;
-        dispatch(handleLogin({ id }));
+        const role = data.role;
+        console.log(role);
+        dispatch(handleLogin({ id, role }));
         navigate("/");
       }
     } else {

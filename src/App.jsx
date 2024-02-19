@@ -14,12 +14,14 @@ import { handleLogout, handleVerify } from "../src/utils/store/AuthSlice.js";
 import RedirectingPage from "./pages/RedirectingPage.jsx";
 import Profile from "./pages/Profile.jsx";
 import BookDetails from "./pages/BookDetails.jsx";
-import AdminPage from "./pages/AdminPage.jsx";
+import DashBoardHeader from "./pages/DashBoardHeader.jsx";
+import UserList from "./components/UserList/UserList.jsx";
+import UsersPage from "./pages/UsersPage.jsx";
 
 function App() {
   const dispatch = useDispatch();
   // const check = useSelector((state) => state.auth);
-  const checkAuthenticated = useCallback( () => {
+  const checkAuthenticated = useCallback(() => {
     try {
       const token = localStorage.getItem("token");
       const fetchData = async () => {
@@ -35,22 +37,22 @@ function App() {
         const resData = await response.json();
         if (resData.status === true) {
           const id = resData.user_id;
-          dispatch(handleVerify({id}));
+          const role = resData.role;
+          dispatch(handleVerify({ id, role }));
         } else {
           dispatch(handleLogout());
         }
       };
-      fetchData()
+      fetchData();
     } catch (e) {
       console.log("server error.....!!!", e);
-      dispatch(handleLogout())
+      dispatch(handleLogout());
     }
   }, [dispatch]);
 
   useEffect(() => {
-    checkAuthenticated()
+    checkAuthenticated();
   }, []);
-
 
   // console.log(check);
 
@@ -84,20 +86,26 @@ function App() {
         },
         {
           path: "user/:id",
-          element: <Profile/>,
+          element: <Profile />,
         },
         {
           path: "books/:id",
-          element: <BookDetails/>
+          element: <BookDetails />,
         },
         {
-          path: 'redirect',
-          element: <RedirectingPage/>
+          path: "redirect",
+          element: <RedirectingPage />,
         },
         {
-          path: 'admin-panel',
-          element: <AdminPage/>
-        }
+          path: "admin-panel",
+          element: <DashBoardHeader />,
+          children: [
+            { 
+              path: "users",
+              element: <UsersPage/>  
+            }
+          ],
+        },
       ],
     },
   ]);

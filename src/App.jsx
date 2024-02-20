@@ -54,7 +54,6 @@ function App() {
     checkAuthenticated();
   }, []);
 
-  // console.log(check);
 
   const router = createBrowserRouter([
     {

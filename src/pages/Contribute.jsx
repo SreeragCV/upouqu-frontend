@@ -25,9 +25,9 @@ function Contribute() {
         backgroundSize: "1865px 1000px",
       }}
     >
-      <h1>
+      {isVerified && <h1>
         <BookForm />
-      </h1>
+      </h1>}
     </div>
   );
 }

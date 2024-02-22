@@ -34,22 +34,23 @@ export default function AuthForm({ signup }) {
       if (data && data.id && token) {
         const id = data.id;
         const role = data.role;
+        const full_name = data.full_name
         console.log(role);
-        dispatch(handleLogin({ id, role }));
+        dispatch(handleLogin({ id, role, full_name }));
         navigate("/");
       }
-    } else {
-      navigate("/");
-    }
+    } 
   }, [verify, data, token]);
 
   const [enteredValues, setEnteredValues] = useState({
+    full_name: "",
     username: "",
     email: "",
     password: "",
   });
 
   const [didEdit, setDidEdit] = useState({
+    full_name: false,
     username: false,
     email: false,
     password: false,
@@ -60,6 +61,8 @@ export default function AuthForm({ signup }) {
   const emailIsInvalid = didEdit.email && !isEmail(enteredValues.email);
   const passwordIsInvalid =
     didEdit.password && !hasMinLength(enteredValues.password, 6);
+  const fullNameisInvalid =
+    didEdit.full_name && !hasMinLength(enteredValues.full_name, 3);
 
   const ifLoginDisable =
     enteredValues.email === "" ||
@@ -73,7 +76,9 @@ export default function AuthForm({ signup }) {
     enteredValues.password === "" ||
     passwordIsInvalid ||
     enteredValues.username === "" ||
-    usernameIsInvalid;
+    usernameIsInvalid ||
+    enteredValues.full_name === "" ||
+    fullNameisInvalid;
 
   function handleInputChange(identifier, value) {
     setEnteredValues((prevValues) => {
@@ -109,14 +114,14 @@ export default function AuthForm({ signup }) {
         direction="row"
         justifyContent="center"
         alignItems="center"
-        paddingBottom={signup ? "10.6rem" : "11.8rem"}
+        paddingBottom={signup ? "8rem" : "11.8rem"}
         overflow="hidden"
       >
         <Card
           sx={{
-            maxWidth: 345,
+            width: signup ? 445 : 370,
             justifyContent: "center",
-            marginTop: signup ? "14rem" : "16rem",
+            marginTop: signup ? "11.4rem" : "16rem",
             borderRadius: "18px",
             boxShadow: "0px 0px 26px 5px  rgba(0, 255, 183, 0.508);",
           }}
@@ -133,9 +138,27 @@ export default function AuthForm({ signup }) {
               {signup && (
                 <Input
                   type="text"
+                  id="full_name"
+                  name="full_name"
+                  label="Full Name"
+                  onChange={(e) =>
+                    handleInputChange("full_name", e.target.value)
+                  }
+                  onBlur={() => handleBlur("full_name")}
+                  error={data ? data : fullNameisInvalid}
+                  value={enteredValues.full_name}
+                  message={
+                    (data && data.full_name ? data.full_name : null) ||
+                    (!data && "Your name must have atleast 3 characters")
+                  }
+                />
+              )}
+              {signup && (
+                <Input
+                  type="text"
                   id="username"
                   name="username"
-                  label="username"
+                  label="Username"
                   onChange={(e) =>
                     handleInputChange("username", e.target.value)
                   }
@@ -152,7 +175,7 @@ export default function AuthForm({ signup }) {
                 type="email"
                 id="email"
                 name="email"
-                label="email"
+                label="Email"
                 onChange={(e) => handleInputChange("email", e.target.value)}
                 onBlur={() => handleBlur("email")}
                 error={data ? data : emailIsInvalid}
@@ -166,7 +189,7 @@ export default function AuthForm({ signup }) {
                 type="password"
                 id="password"
                 name="password"
-                label="password"
+                label="Password"
                 onChange={(e) => handleInputChange("password", e.target.value)}
                 onBlur={() => handleBlur("password")}
                 error={data ? data : passwordIsInvalid}

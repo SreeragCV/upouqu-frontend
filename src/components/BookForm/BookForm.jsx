@@ -17,45 +17,6 @@ const submitStyle =
 const fileStyle =
   "bg-gray-700 mt-1 text-gray-200 border-0 rounded-md p-3 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150";
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-
-const genres = [
-  "Psychology",
-  "Thriller",
-  "Novel",
-  "Short Story",
-  "Philosophy",
-  "Literature",
-  "History",
-  "Romance",
-  "Mystery",
-  "Fiction",
-  "Poetry",
-  "Biography",
-  "Action",
-  "Horror",
-  "Science Fiction",
-  "Fantasy",
-];
-
-function getStyles(name, genreName, theme) {
-  return {
-    fontWeight:
-      genreName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
-
 function BookForm() {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
@@ -65,6 +26,7 @@ function BookForm() {
   const [serverError, setServerError] = useState("");
   const [fileError, setFileError] = useState();
   const [genreName, setGenreName] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [didEdit, setDidEdit] = useState({
     name: false,
     genre: false,
@@ -72,6 +34,45 @@ function BookForm() {
     description: false,
   });
   const theme = useTheme();
+
+  const ITEM_HEIGHT = 48;
+  const ITEM_PADDING_TOP = 8;
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 250,
+      },
+    },
+  };
+
+  const genres = [
+    "Psychology",
+    "Thriller",
+    "Novel",
+    "Short Story",
+    "Philosophy",
+    "Literature",
+    "History",
+    "Romance",
+    "Mystery",
+    "Fiction",
+    "Poetry",
+    "Biography",
+    "Action",
+    "Horror",
+    "Science Fiction",
+    "Fantasy",
+  ];
+
+  function getStyles(name, genreName, theme) {
+    return {
+      fontWeight:
+        genreName.indexOf(name) === -1
+          ? theme.typography.fontWeightRegular
+          : theme.typography.fontWeightMedium,
+    };
+  }
 
   const handleChange = (event) => {
     const {
@@ -90,7 +91,7 @@ function BookForm() {
 
   const nameIsInvalid = didEdit.name && name === "";
   const genreIsInvalid = didEdit.genre && genreName.length <= 0;
-  const priceIsInvalid = didEdit.price && price === "" || !isNumber(price);
+  const priceIsInvalid = (didEdit.price && price === "") || !isNumber(price);
   const descriptionIsInvalid = didEdit.description && description === "";
 
   const disableButton =
@@ -104,6 +105,7 @@ function BookForm() {
     try {
       event.preventDefault();
 
+      setIsSubmitting(true);
       let fileErrors = {};
 
       if (!image || !image.type.startsWith("image/")) {
@@ -143,6 +145,8 @@ function BookForm() {
       if (!e.status === 422) {
         setServerError(e);
       }
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -161,7 +165,7 @@ function BookForm() {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen dark">
-      <div className="w-full max-w-md bg-gray-800 rounded-lg shadow-md p-6 mt-20">
+      <div className="w-full max-w-2xl bg-gray-800 rounded-lg shadow-md p-6 mt-20">
         <h2 className="text-2xl font-bold text-gray-200 mb-4">
           Submit your book!
         </h2>
@@ -187,7 +191,7 @@ function BookForm() {
           ) : null}
 
           <div className="mt-4">
-            <FormControl style={{width: '400px'}}>
+            <FormControl style={{display:'flex'}}>
               <InputLabel
                 style={{ color: "rgb(229, 231, 235, .5)" }}
                 id="demo-multiple-name-label"
@@ -264,8 +268,8 @@ function BookForm() {
             </p>
           ) : null}
 
-          <label className="mt-4" htmlFor="book">
-            Book (pdf)
+          <label className="mt-4 text-slate-300" htmlFor="book">
+            Book
           </label>
           <input
             name="book"
@@ -279,7 +283,7 @@ function BookForm() {
             <p className="mt-1 text-sm text-red-500">{fileError.pdf}</p>
           ) : null}
 
-          <label className="mt-4" htmlFor="image">
+          <label className="mt-4 text-slate-300" htmlFor="image">
             Cover Image
           </label>
           <input
@@ -295,9 +299,9 @@ function BookForm() {
           ) : null}
 
           <button
-            className={disableButton ? disabledStyle : submitStyle}
+            className={disableButton || isSubmitting ? disabledStyle : submitStyle}
             type="submit"
-            disabled={disableButton}
+            disabled={disableButton || isSubmitting}
           >
             Submit
           </button>

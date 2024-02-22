@@ -11,7 +11,7 @@ function UserList({ users }) {
           <th className={classes.th}>Username</th>
           <th className={classes.th}>Email</th>
         </tr>
-        {users.length > 0 &&
+        {users && users.length > 0 &&
           users.map((user, index) => {
             return (
               <tr key={user.user_id}>

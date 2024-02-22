@@ -1,8 +1,22 @@
 import classes from "./BookList.module.css";
 import DUMMY_DATA from "../../data/DUMMY_DATA";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import axios from "axios";
 
-function BookList({ title }) {
+function BookList({ title, url }) {
+  useEffect(() => {
+    try {
+      const fetchBooks = async () => {
+        const response = await axios.get(url);
+        const data = response.data;
+        const allBooks = data.books.rows;
+        console.log(allBooks);
+      };
+      fetchBooks();
+    } catch (e) {}
+  }, []);
+
   return (
     <div className={classes.row}>
       <h2 className={classes.title}>{title}</h2>

@@ -15,6 +15,7 @@ export default Signup;
 export async function action({ request, params }) {
   const formData = await request.formData();
   const userData = {
+    full_name: formData.get('full_name'),
     username: formData.get("username"),
     email: formData.get("email"),
     password: formData.get("password"),

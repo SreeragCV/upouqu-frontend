@@ -12,6 +12,9 @@ function Profile() {
   const [fetchUserData, setFetchUserData] = useState({});
   const [error, setError] = useState();
   const isVerified = useSelector((state) => state.auth.isVerified)
+  const states = useSelector((state) => state.auth)
+
+  console.log(states);
 
   if(!isVerified){
     throw json({
@@ -50,8 +53,6 @@ function Profile() {
       console.log("server error: ", e);
     }
   }, []);
-
-  console.log(fetchUserData);
 
   if(error && error.message && error.title){
     return <CustomError title={error.title} message={error.message}/>

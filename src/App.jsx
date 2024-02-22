@@ -38,7 +38,8 @@ function App() {
         if (resData.status === true) {
           const id = resData.user_id;
           const role = resData.role;
-          dispatch(handleVerify({ id, role }));
+          const full_name = resData.full_name;
+          dispatch(handleVerify({ id, role, full_name }));
         } else {
           dispatch(handleLogout());
         }

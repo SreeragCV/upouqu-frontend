@@ -5,63 +5,61 @@
 }
 
 .posters {
-    margin-top: 2px;
+  margin-top: 10px;
   display: flex;
-  overflow-x: scroll;
+  border: 0.1rem solid rgba(0, 0, 0, 0.304);
+  padding: 34px;
+  border-radius: 10px;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .poster {
-  max-width: 16rem;
+  width: 200px;
+  height: 250px;
   margin: 8px;
   border-radius: 18px;
   cursor: pointer;
   transition: 300ms;
 }
 
-.poster:hover{
-    border-radius: 16px;
-    cursor: pointer;
-    transform: scale(.9);
-    box-shadow: 0px 0px 26px 5px  rgba(0, 255, 183, 0.408);
-    background: rgb(103, 151, 255);
-    transition: 300ms;
+.poster:hover {
+  cursor: pointer;
+  transform: scale(0.9);
+  box-shadow: 0px 0px 26px 5px rgba(0, 255, 183, 0.408);
+  background: rgb(103, 151, 255);
+  transition: 300ms;
 }
 
-.title{
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: 600;
-    font-size: 20px;
+.posters:hover {
+  border: 0.1rem solid rgba(255, 255, 255, 0.355);
 }
 
-.bookTitle{
-    margin-left: 10px;
+.title {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  transition: 200ms;
 }
 
-.posters::-webkit-scrollbar {
-  display: none;
+.title:hover{
+  font-size: 22px;
+  color: aqua;
+  transition: 200ms;
 }
 
-@media screen and (max-width: 1224px) {
-  .poster {
-    max-width: 12rem;
+.bookTitle {
+  margin-top: 12px;
+  margin-left: 10px;
+}
+
+@media screen and (max-width: 440px) {
+  .posters {
+    justify-content: center;
   }
-  .row {
-    margin: 3rem;
-  }
-}
-
-@media screen and (max-width: 900px) {
-  .poster {
-    max-width: 9rem;
-  }
-  .row {
-    margin: 2rem;
-  }
-}
-
-@media screen and (max-width: 600px) {
   .poster {
     max-width: 7rem;
+    max-height: 10rem;
   }
   .row {
     margin: 1rem;

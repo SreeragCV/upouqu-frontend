@@ -50,6 +50,7 @@ function BookForm() {
     "Psychology",
     "Thriller",
     "Novel",
+    "Humor",
     "Short Story",
     "Philosophy",
     "Literature",

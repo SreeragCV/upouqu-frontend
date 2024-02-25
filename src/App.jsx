@@ -17,6 +17,7 @@ import BookDetails from "./pages/BookDetails.jsx";
 import DashBoardHeader from "./pages/DashBoardHeader.jsx";
 import UserList from "./components/UserList/UserList.jsx";
 import UsersPage from "./pages/UsersPage.jsx";
+import GenresPage from "./pages/GenresPage.jsx";
 
 function App() {
   const dispatch = useDispatch();
@@ -78,6 +79,10 @@ function App() {
           path: "login",
           element: <Login />,
           action: loginAction,
+        },
+        {
+          path: "genres",
+          element: <GenresPage/>
         },
         {
           path: "signup",

@@ -24,7 +24,7 @@ function Header() {
   const id = useSelector((state) => state.auth.user_id);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  let pages = ["home", "books", "contribute"];
+  let pages = ["home", "books", "contribute", "genres"];
   if(data.role === 'super-admin'){
      pages = ["home", "books", "contribute", "dashboard"];
   }
@@ -109,7 +109,8 @@ function Header() {
                     (page === "home" && "") ||
                     (page === "dashboard" && "admin-panel") ||
                     (page === "books" && "books") ||
-                    (page === "contribute" && "contribute")
+                    (page === "contribute" && "contribute") ||
+                    (page === "genres" && "genres")
                   }
                   style={{
                     textDecoration: "none",
@@ -150,7 +151,8 @@ function Header() {
                   (page === "home" && "") ||
                   (page === "dashboard" && "admin-panel") ||
                   (page === "books" && "books") ||
-                  (page === "contribute" && "contribute")
+                  (page === "contribute" && "contribute") ||
+                  (page === "genres" && "genres")
                 }
                 style={{ textDecoration: "none" }}
               >

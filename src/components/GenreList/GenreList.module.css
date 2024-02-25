@@ -1,0 +1,25 @@
+.row{
+    display: inline-flex;
+    padding: 40px;
+}
+
+.items {
+  margin: 22px;
+  transition: 200ms;
+  border-radius: 10px;
+}
+
+.image {
+  width: 270px;
+  height: 380px;
+  margin: 10px;
+  border-radius: 18px;
+  cursor: pointer;
+  transition: 300ms;
+}
+
+.title{
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 20px;
+    margin-left: 18px;
+}

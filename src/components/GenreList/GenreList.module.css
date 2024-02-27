@@ -10,6 +10,8 @@
 }
 
 .image {
+  top: -100px;
+  left: -100px;
   width: 270px;
   height: 380px;
   margin: 10px;

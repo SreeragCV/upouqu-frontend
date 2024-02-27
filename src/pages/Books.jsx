@@ -30,7 +30,7 @@ function Books() {
       <BookList title="Philosophy" url={philosophy}/>
       <BookList title="Literature" url={literature} />
       <BookList title="History" url={history} />
-      {/* <BookList title="Romance" url={romance}/>
+      <BookList title="Romance" url={romance}/>
       <BookList title="Fiction" url={fiction} />
       <BookList title="Poetry" url={poetry} />
       <BookList title="Biography" url={biography} />
@@ -38,7 +38,7 @@ function Books() {
       <BookList title="Science Fiction" url={scienceFiction} />
       <BookList title="Mystery" url={mystery} />
       <BookList title="Fantasy" url={fantasy} />
-      <BookList title="Humor" url={humor} /> */}
+      <BookList title="Humor" url={humor} />
     </div>
   );
 }

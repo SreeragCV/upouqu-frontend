@@ -26,7 +26,7 @@ function Header() {
   const navigate = useNavigate();
   let pages = ["home", "books", "contribute", "genres"];
   if(data.role === 'super-admin'){
-     pages = ["home", "books", "contribute", "dashboard"];
+     pages = ["home", "books", "contribute", "genres", "dashboard"];
   }
   
   // console.log(data);

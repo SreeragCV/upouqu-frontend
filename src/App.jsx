@@ -18,6 +18,7 @@ import DashBoardHeader from "./pages/DashBoardHeader.jsx";
 import UserList from "./components/UserList/UserList.jsx";
 import UsersPage from "./pages/UsersPage.jsx";
 import GenresPage from "./pages/GenresPage.jsx";
+import BookCount from "./pages/BookCount.jsx";
 
 function App() {
   const dispatch = useDispatch();
@@ -108,6 +109,10 @@ function App() {
             { 
               path: "users",
               element: <UsersPage/>  
+            },
+            {
+              path: "total-books",
+              element: <BookCount/>
             }
           ],
         },

@@ -13,7 +13,7 @@ function DashBoardNavigation() {
             <NavLink to="admins">Admins</NavLink>
           </li>
           <li>
-            <NavLink to="admins">Total Books</NavLink>
+            <NavLink to="total-books">Total Books</NavLink>
           </li><li>
             <NavLink to="admins">Total Users</NavLink>
           </li>

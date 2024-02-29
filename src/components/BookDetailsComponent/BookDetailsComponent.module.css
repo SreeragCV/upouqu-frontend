@@ -27,7 +27,9 @@
 .description{
     font-size: 17px;
     max-width: 480px;
+    word-break: break-all;
 }
+
 
 .button{
     padding: 12px 26px 12px 26px ;
@@ -35,4 +37,8 @@
     color: black;
     border-radius: 20px;
     margin: 10px; 
+}
+
+.showBtn{
+    display: flex;
 }

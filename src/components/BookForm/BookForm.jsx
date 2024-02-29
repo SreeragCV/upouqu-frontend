@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { isNumber } from "../../utils/validations";
+import { isNumber, textLimit } from "../../utils/validations";
 import { useTheme } from "@mui/material/styles";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
@@ -93,7 +93,7 @@ function BookForm() {
   const nameIsInvalid = didEdit.name && name === "";
   const genreIsInvalid = didEdit.genre && genreName.length <= 0;
   const priceIsInvalid = (didEdit.price && price === "") || !isNumber(price);
-  const descriptionIsInvalid = didEdit.description && description === "";
+  const descriptionIsInvalid = didEdit.description && (description === "" || textLimit(description, 1200));
 
   const disableButton =
     name === "" ||
@@ -188,7 +188,7 @@ function BookForm() {
             onBlur={() => handleBlur("name")}
           />
           {nameIsInvalid ? (
-            <p className="mt-1 text-sm text-red-500">Enter a valid book name</p>
+            <p className="mt-1 text-sm text-red-500">Book name is required</p>
           ) : null}
 
           <div className="mt-4">
@@ -223,7 +223,7 @@ function BookForm() {
             </FormControl>
           </div>
           {genreIsInvalid ? (
-            <p className="mt-1 text-sm text-red-500">Enter a valid genre</p>
+            <p className="mt-1 text-sm text-red-500">Genre is required</p>
           ) : null}
 
           <input
@@ -244,7 +244,7 @@ function BookForm() {
           />
           {priceIsInvalid ? (
             <p className="mt-1 text-sm text-red-500">
-              Price must be a number (Enter 0 if not selling for a price)
+              Enter a valid number for the price (or 0 if it's not for sale).
             </p>
           ) : null}
 
@@ -265,7 +265,7 @@ function BookForm() {
           ></textarea>
           {descriptionIsInvalid ? (
             <p className="mt-1 text-sm text-red-500">
-              Enter a valid description
+              Description is required (upto 1200 words)
             </p>
           ) : null}
 

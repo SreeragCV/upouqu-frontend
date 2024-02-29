@@ -13,3 +13,10 @@ export function hasMinLength(value, minLength) {
 export function isNumber(value) {
   return !isNaN(value);
 }
+
+export function textLimit(text, maxLimit) {
+  if (text.length > maxLimit) {
+    return true;
+  }
+  return false;
+}

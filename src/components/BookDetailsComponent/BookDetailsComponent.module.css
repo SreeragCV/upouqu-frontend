@@ -1,0 +1,38 @@
+.container{
+    margin-top: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 50px;
+}
+
+.mainDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image{
+    width: 340px;
+    height: 440px;
+    border-radius: 10px;
+}
+
+.title{
+    text-align: center;
+    margin-top: 8px;
+    font-size: 36px;
+}
+
+.description{
+    font-size: 17px;
+    max-width: 480px;
+}
+
+.button{
+    padding: 12px 26px 12px 26px ;
+    background-color: goldenrod;
+    color: black;
+    border-radius: 20px;
+    margin: 10px; 
+}

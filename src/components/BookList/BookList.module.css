@@ -7,7 +7,7 @@
 .posters {
   margin-top: 1px;
   display: flex;
-  border: 0.1rem solid rgba(0, 0, 0, 0.304);
+  /* border: 0.1rem solid rgba(0, 0, 0, 0.304); */
   /* padding: 34px; */
   border-radius: 10px;
   flex-wrap: wrap;
@@ -57,7 +57,8 @@
 
 /* loader */
 .loader {
-  justify-content: center;
+  margin: auto;
+  margin-top: 40px;
   width: 45px;
   height: 40px;
   background: linear-gradient(

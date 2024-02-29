@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import BookDetailsComponent from "../components/BookDetailsComponent/BookDetailsComponent";
 
 function BookDetails() {
   const params = useParams();
@@ -16,14 +17,14 @@ function BookDetails() {
         setFetchBookDetails(book);
       };
       callingBookDetails();
-    } catch (e) {}
+    } catch (e) {
+      console.log(e);
+    }
   }, []);
 
   return (
     <div className="mt-24">
-      {fetchBookDetails && <h1>{fetchBookDetails.book_name}</h1>
-      
-      }
+      {fetchBookDetails && <BookDetailsComponent details={fetchBookDetails} />}
     </div>
   );
 }

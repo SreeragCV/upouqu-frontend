@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 body {
-  background-color: rgba(0, 0, 0);
+  background-image: linear-gradient(to right,rgb(52, 52, 52), rgb(0, 0, 0) );
 }
 
 ::-webkit-scrollbar{
@@ -14,7 +14,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb{
-  background-color: darkgoldenrod;
+  background-color: rgb(255, 183, 0);
   border-radius: 10px;
 }
 

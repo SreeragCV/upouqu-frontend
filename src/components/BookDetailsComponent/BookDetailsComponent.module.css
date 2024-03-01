@@ -1,44 +1,88 @@
+.top{
+    padding: 0px 300px 0px 300px;
+}
+
 .container{
     margin-top: 150px;
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    gap: 50px;
+    flex-wrap: wrap;
+    border-radius: 20px;
 }
 
-.mainDiv{
+.genre{
+    display:inline;
+}
+
+.description h3{
+    font-size: 20px;
+    color: rgb(255, 255, 127);
+    margin-top: 14px;
+}
+
+.card{
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: auto;
 }
 
 .image{
-    width: 340px;
-    height: 440px;
-    border-radius: 10px;
+    width: 430px;
+    height: 520px;
+    border-radius: 40px;
+    padding: 20px;
 }
 
 .title{
+    color:rgb(0, 255, 255);
     text-align: center;
-    margin-top: 8px;
-    font-size: 36px;
+    font-size: 34px;
 }
 
 .description{
+    margin: auto;
+    margin-top: 0px;
     font-size: 17px;
     max-width: 480px;
+    padding: 30px;
     word-break: break-all;
 }
 
 
 .button{
-    padding: 12px 26px 12px 26px ;
-    background-color: goldenrod;
+    padding: 12px 39px 12px 39px ;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(255, 255, 255);
     color: black;
+    font-weight: 500;
     border-radius: 20px;
-    margin: 10px; 
+    margin: 10px;
+    transition: 200ms; 
+}
+
+.button:hover{
+    transform: scale(1.1);
+    transition: 200ms;
 }
 
 .showBtn{
     display: flex;
+    color: cadetblue;
+}
+
+.full_name{
+    margin: 20px;
+    font-size: 20px;
+}
+
+.btnDiv{
+    display: flex;
+    justify-content: center;
+}
+
+@media(max-width: 1290px){
+    .top{
+        padding: 0%;
+    }
 }

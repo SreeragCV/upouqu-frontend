@@ -6,6 +6,7 @@ import BookDetailsComponent from "../components/BookDetailsComponent/BookDetails
 function BookDetails() {
   const params = useParams();
   const [fetchBookDetails, setFetchBookDetails] = useState("");
+  const [userDetails, setUserDetails] = useState("");
 
   useEffect(() => {
     try {
@@ -14,7 +15,9 @@ function BookDetails() {
           `http://localhost:8080/books/${params.id}`
         );
         const book = response.data.bookDetails;
+        const user = response.data.userDetails;
         setFetchBookDetails(book);
+        setUserDetails(user);
       };
       callingBookDetails();
     } catch (e) {
@@ -22,9 +25,16 @@ function BookDetails() {
     }
   }, []);
 
+  console.log(fetchBookDetails);
+
   return (
-    <div className="mt-24">
-      {fetchBookDetails && <BookDetailsComponent details={fetchBookDetails} />}
+    <div className="mt-36">
+      {fetchBookDetails && (
+        <BookDetailsComponent
+          bookDetails={fetchBookDetails}
+          userDetails={userDetails}
+        />
+      )}
     </div>
   );
 }

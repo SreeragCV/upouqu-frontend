@@ -93,7 +93,7 @@ function BookForm() {
   const nameIsInvalid = didEdit.name && name === "";
   const genreIsInvalid = didEdit.genre && genreName.length <= 0;
   const priceIsInvalid = (didEdit.price && price === "") || !isNumber(price);
-  const descriptionIsInvalid = didEdit.description && (description === "" || textLimit(description, 1200));
+  const descriptionIsInvalid = didEdit.description && (description === "" || textLimit(description, 1000));
 
   const disableButton =
     name === "" ||
@@ -265,7 +265,7 @@ function BookForm() {
           ></textarea>
           {descriptionIsInvalid ? (
             <p className="mt-1 text-sm text-red-500">
-              Description is required (upto 1200 words)
+              Description is required (upto 1000 words)
             </p>
           ) : null}
 

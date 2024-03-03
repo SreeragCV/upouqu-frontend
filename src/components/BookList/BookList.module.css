@@ -27,7 +27,7 @@
 .poster:hover {
   cursor: pointer;
   transform: scale(0.9);
-  box-shadow: 0px 0px 26px 5px rgba(0, 255, 183, 0.416);
+  box-shadow: 0px 0px 26px 5px rgb(0, 129, 92);
   background: rgb(103, 151, 255);
   transition: 300ms;
 }
@@ -53,6 +53,7 @@
 .bookTitle {
   margin-top: 12px;
   margin-left: 10px;
+  font-weight: 500;
 }
 
 /* loader */

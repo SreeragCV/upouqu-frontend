@@ -131,8 +131,8 @@ export default function AuthForm({ signup }) {
               {signup ? "Welcome to" : "Welcome back to"}
               <span className="text-[#7747ff]"> UPOUQU</span>
             </div>
-            <div className="text-sm font-normal mb-4 text-center text-[#9a75ff]">
-              Log in to your account
+            <div className="text-md font-normal mb-3 text-center text-[#9a75ff]">
+              {signup ? "Create your account here!" : "Log in to your account"}
             </div>
             <Form method="POST" className="flex flex-col gap-3">
               {signup && (

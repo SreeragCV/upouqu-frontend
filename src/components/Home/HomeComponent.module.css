@@ -1,0 +1,17 @@
+.container{
+    display: flex;
+    text-align: center;
+    height: 100vh;
+    background-color: black;
+    justify-content: center;
+}
+
+.heading{
+    position: absolute;
+    top: 40%;
+    font-size: 80px;
+    font-family: "Protest Revolution", sans-serif;
+    background: linear-gradient(to right, #ffffff, rgb(0, 255, 234));
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+}

@@ -5,16 +5,20 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import CustomError from "../../pages/CustomError";
 
-function BookList({ title, url }) {
+function BookList({ title }) {
   const [fetchBooks, setFetchBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (url) {
+    if (title) {
       const fetchBooks = async () => {
         setIsLoading(true);
-        const response = await axios.get(url);
+        const response = await axios.get("http://localhost:8080/book/genres", {
+          params: {
+            genre: title  ,
+          },
+        });
         const data = response.data;
         const allBooks = data.books.rows;
         const firstTwentyBooks = allBooks.slice(0, 20);
@@ -30,8 +34,8 @@ function BookList({ title, url }) {
     }
   }, []);
 
-  if(error){
-    return <CustomError/>
+  if (error) {
+    return <CustomError />;
   }
 
   return (

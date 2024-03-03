@@ -18,17 +18,26 @@ import {
   fantasy,
   humor
 } from "../utils/genreUrls";
+const genres = [
+  { title:"Horror" },
+{title:"Psychology"}, {title:"Thriller"}
+]
+
 
 function Books() {
   return (
     <div className="mt-24">
-      <BookList title="Horror" url={horror} />
-      <BookList title="Psychology" url={psychology} />
-      <BookList title="Thriller" url={thriller}/>
-      <BookList title="Novel" url={novel} />
-      <BookList title="Short Story" url={shortStory} />
-      <BookList title="Philosophy" url={philosophy}/>
-      <BookList title="Literature" url={literature} />
+      {
+        genres.map(genre=>{
+          return <BookList title = {genre.title}/>
+        })
+      }
+      <BookList title="Psychology" />
+      <BookList title="Thriller"/>
+      <BookList title="Novel" />
+      <BookList title="Short Story" />
+      <BookList title="Philosophy" />
+      <BookList title="Literature" />
       {/* <BookList title="History" url={history} />
       <BookList title="Romance" url={romance}/>
       <BookList title="Fiction" url={fiction} />

@@ -16,18 +16,12 @@ function Contribute() {
   }, [data]);
 
   return (
-    <div
-      style={{
-        backgroundImage: `url(${bgImage})`,
-        backgroundRepeat: "no-repeat",
-        backgroundAttachment: "fixed",
-        backgroundPosition: "11px",
-        backgroundSize: "1865px 1000px",
-      }}
-    >
-      {isVerified && <h1>
-        <BookForm />
-      </h1>}
+    <div>
+      {isVerified && (
+        <h1>
+          <BookForm />
+        </h1>
+      )}
     </div>
   );
 }

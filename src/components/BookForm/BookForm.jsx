@@ -88,8 +88,6 @@ function BookForm() {
     });
   };
 
-  console.log(genreName);
-
   const nameIsInvalid = didEdit.name && name === "";
   const genreIsInvalid = didEdit.genre && genreName.length <= 0;
   const priceIsInvalid = (didEdit.price && price === "") || !isNumber(price);

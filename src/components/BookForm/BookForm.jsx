@@ -7,6 +7,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import {useNavigate} from 'react-router-dom'
 
 const inputStyle =
   "bg-gray-700 text-gray-200 border-0 rounded-md p-3 mt-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150";
@@ -34,6 +35,7 @@ function BookForm() {
     description: false,
   });
   const theme = useTheme();
+  const navigate = useNavigate()
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -91,7 +93,7 @@ function BookForm() {
   const nameIsInvalid = didEdit.name && name === "";
   const genreIsInvalid = didEdit.genre && genreName.length <= 0;
   const priceIsInvalid = (didEdit.price && price === "") || !isNumber(price);
-  const descriptionIsInvalid = didEdit.description && (description === "" || textLimit(description, 1000));
+  const descriptionIsInvalid = didEdit.description && (description === "" || textLimit(description, 850));
 
   const disableButton =
     name === "" ||
@@ -137,8 +139,9 @@ function BookForm() {
           headers: { "Content-Type": "multipart/form-data", token: token },
         }
       );
+      const id = response.data.book_id;
+      navigate(`/books/${id}`)
 
-      console.log(response);
     } catch (e) {
       console.log(e);
       if (!e.status === 422) {
@@ -263,7 +266,7 @@ function BookForm() {
           ></textarea>
           {descriptionIsInvalid ? (
             <p className="mt-1 text-sm text-red-500">
-              Description is required (upto 1000 words)
+              Description is required (upto 850 words)
             </p>
           ) : null}
 
@@ -302,7 +305,7 @@ function BookForm() {
             type="submit"
             disabled={disableButton || isSubmitting}
           >
-            Submit
+            {isSubmitting ? 'Submitting...' : 'Submit'}
           </button>
         </form>
       </div>

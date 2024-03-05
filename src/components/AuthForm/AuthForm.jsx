@@ -167,7 +167,7 @@ export default function AuthForm({ signup }) {
                   value={enteredValues.username}
                   message={
                     (data && data.username ? data.username : null) ||
-                    (!data && "username must have atleast 3 characters")
+                    (!data && "Username must have atleast 3 characters")
                   }
                 />
               )}
@@ -182,7 +182,7 @@ export default function AuthForm({ signup }) {
                 value={enteredValues.email}
                 message={
                   (data && data.email ? data.email : null) ||
-                  (!data && "enter a valid email address")
+                  (!data && "Enter a valid email address")
                 }
               />
               <Input
@@ -196,7 +196,7 @@ export default function AuthForm({ signup }) {
                 value={enteredValues.password}
                 message={
                   (data && data.password ? data.password : null) ||
-                  (!data && "password must have 6 characters")
+                  (!data && "Password must have 6 characters")
                 }
               />
               {data && data.error_message && (

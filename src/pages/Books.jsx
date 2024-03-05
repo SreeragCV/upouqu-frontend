@@ -19,7 +19,7 @@ function Books() {
   return (
     <div className="mt-24">
       {genres.map((genre) => {
-        return <BookList title={genre.title} />;
+        return <BookList key={genre.title} title={genre.title} />;
       })}
     </div>
   );

@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import classes from "./BookDetailsComponent.module.css";
+import { useSelector } from "react-redux";
 
 function BookDetailsComponent({ bookDetails, userDetails }) {
   const [showMore, setShowMore] = useState(false);
+  const data = useSelector((state) => state.auth);
+  const currentUser = userDetails.user_id === data.user_id;
+  console.log(currentUser);
 
   return (
     <>
@@ -17,8 +21,8 @@ function BookDetailsComponent({ bookDetails, userDetails }) {
               />
               <p className={classes.full_name}>by {userDetails.full_name}</p>
               <div className={classes.btnDiv}>
-                <button className={classes.button}>Read</button>
-                <button className={classes.button}>Save</button>
+                <button className={classes.button}><span>Read</span></button>
+                <button className={classes.button}><span>Save</span></button>
               </div>
             </div>
             <p className={classes.description}>
@@ -43,6 +47,12 @@ function BookDetailsComponent({ bookDetails, userDetails }) {
                   {showMore ? "Show less" : "Show more"}
                 </button>
               </div>
+              {data.isVerified && currentUser && (
+                <div className={classes.btnDiv}>
+                  <button className={classes.deleteBtn}>Delete</button>
+                  <button className={classes.updateBtn}>Update</button>
+                </div>
+              )}
             </p>
           </div>
         </div>

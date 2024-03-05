@@ -1,89 +1,144 @@
-.top{
-    padding: 0px 300px 0px 300px;
+.top {
+  padding: 0px 300px 0px 300px;
 }
 
-.container{
-    margin-top: 150px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    border-radius: 20px;
+.container {
+  margin-top: 150px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border-radius: 20px;
 }
 
-.genre{
-    display:inline;
+.genre {
+  display: inline;
 }
 
-
-.description h3{
-    font-size: 20px;
-    color: rgb(0, 28, 141);
-    margin-top: 14px;
+.description h3 {
+  font-size: 20px;
+  color: rgb(0, 28, 141);
+  margin-top: 14px;
 }
 
-.card{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: auto;
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  /* border: 1px solid rgba(61, 61, 61, 0.718); */
+  padding: 18px;
+  border-radius: 10px;
 }
 
-.image{
-    width: 430px;
-    height: 520px;
-    border-radius: 40px;
-    padding: 20px;
+.image {
+  width: 430px;
+  height: 520px;
+  border-radius: 40px;
+  padding: 10px;
 }
 
-.title{
-    color:rgb(0, 100, 100);
-    text-align: center;
-    font-size: 34px;
+.title {
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-size: 34px;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 
-.description{
-    margin: auto;
-    margin-top: 0px;
-    font-size: 17px;
-    width: 480px;
-    padding: 30px;
-    word-break: break-all;
+.description {
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  font-size: 17px;
+  width: 480px;
+  padding: 30px;
+  word-break: break-all;
+  border: 1px solid rgba(61, 61, 61, 0.718);
+  border-radius: 10px;
 }
 
-
-.button{
-    padding: 12px 39px 12px 39px ;
-    background-color: rgb(255, 255, 255);
-    border: 1px solid rgb(255, 255, 255);
-    color: black;
-    font-weight: 500;
-    border-radius: 20px;
-    margin: 10px;
-    transition: 200ms; 
+.button {
+  padding: 12px 39px 12px 39px;
+  margin: 10px;
+  transition: 200ms;
+  width: 100px;
+  padding: 0;
+  border: none;
+  transform-origin: center;
+  font-family: "Gochi Hand", cursive;
+  text-decoration: none;
+  font-size: 15px;
+  cursor: pointer;
+  padding-bottom: 3px;
+  border-radius: 25px;
+  box-shadow: 0 1px 0 #494a4b;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background-color: #8cf8bd;
 }
 
-.button:hover{
-    transform: scale(1.1);
-    transition: 200ms;
+.button span {
+  background: #f1f5f8;
+  display: block;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  border: 1px solid #494a4b;
 }
 
-.showBtn{
-    display: flex;
-    color: rgb(9, 126, 130);
+.button:active {
+  transform: translateY(5px);
+  padding-bottom: 0px;
+  outline: 0;
 }
 
-.full_name{
-    margin: 20px;
-    font-size: 20px;
+.showBtn {
+  display: flex;
+  color: darkblue;
 }
 
-.btnDiv{
-    display: flex;
-    justify-content: center;
+.full_name {
+  margin: 10px;
+  font-size: 20px;
+  font-family: "Gochi Hand", cursive;
 }
 
-@media(max-width: 1290px){
-    .top{
-        padding: 0%;
+.btnDiv {
+  display: flex;
+  justify-content: center;
+}
+
+.deleteBtn {
+  background-color: rgb(190, 0, 0);
+  padding: 12px 39px 12px 39px;
+  color: rgb(255, 255, 255);
+  font-weight: 500;
+  border-radius: 20px;
+  margin: 10px;
+  transition: 200ms;
+}
+
+.updateBtn {
+  background-color: rgb(0, 190, 190);
+  padding: 12px 39px 12px 39px;
+  color: rgb(255, 255, 255);
+  font-weight: 500;
+  border-radius: 20px;
+  margin: 10px;
+  transition: 200ms;
+}
+
+@media (max-width: 1290px) {
+  .top {
+    padding: 0%;
+  }
+}
+
+@media (max-width: 520px) {
+    .image{
+        width: 330px;
+        height: 430px;
+        border-radius: 40px;
+        padding: 10px;
+    }
+    .description{
+        margin: 12px;
     }
 }

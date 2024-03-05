@@ -28,7 +28,7 @@ function BookDetails() {
   console.log(fetchBookDetails);
 
   return (
-    <div className="mt-36">
+    <div className=" mt-28">
       {fetchBookDetails && (
         <BookDetailsComponent
           bookDetails={fetchBookDetails}

@@ -18,6 +18,8 @@
   font-size: 20px;
   color: rgb(0, 28, 141);
   margin-top: 14px;
+  text-decoration: underline .1px black;
+  text-underline-offset: 6px;
 }
 
 .card {
@@ -54,12 +56,12 @@
   width: 480px;
   padding: 30px;
   word-break: break-all;
-  border: 1px solid rgba(61, 61, 61, 0.718);
+  border: 1px solid rgb(87, 87, 87);
+  /* background-color: rgba(255, 255, 255, 0.667); */
   border-radius: 10px;
 }
 
 .button {
-  padding: 12px 39px 12px 39px;
   margin: 10px;
   transition: 200ms;
   width: 100px;
@@ -144,5 +146,11 @@
     }
     .description{
         margin: 12px;
+    }
+
+    .updateBtn, .deleteBtn{
+      margin: 6px;
+  padding: 10px 19px 10px 19px;
+  
     }
 }

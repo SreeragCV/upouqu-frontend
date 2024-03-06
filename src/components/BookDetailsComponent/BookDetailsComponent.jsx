@@ -1,12 +1,29 @@
 import React, { useState } from "react";
 import classes from "./BookDetailsComponent.module.css";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function BookDetailsComponent({ bookDetails, userDetails }) {
   const [showMore, setShowMore] = useState(false);
   const data = useSelector((state) => state.auth);
   const currentUser = userDetails.user_id === data.user_id;
-  console.log(currentUser);
+  const navigate = useNavigate();
+
+  async function deleteHandler(id) {
+    try {
+      const proceed = window.confirm("Are you sure");
+
+      if (proceed) {
+        const deleteBook = await axios.delete(
+          `http://localhost:8080/book/${id}`
+        );
+        navigate('/books')
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   return (
     <>
@@ -21,8 +38,12 @@ function BookDetailsComponent({ bookDetails, userDetails }) {
               />
               <p className={classes.full_name}>by {userDetails.full_name}</p>
               <div className={classes.btnDiv}>
-                <button className={classes.button}><span>Read</span></button>
-                <button className={classes.button}><span>Save</span></button>
+                <button className={classes.button}>
+                  <span>Read</span>
+                </button>
+                <button className={classes.button}>
+                  <span>Save</span>
+                </button>
               </div>
             </div>
             <p className={classes.description}>
@@ -49,8 +70,17 @@ function BookDetailsComponent({ bookDetails, userDetails }) {
               </div>
               {data.isVerified && currentUser && (
                 <div className={classes.btnDiv}>
-                  <button className={classes.deleteBtn}>Delete</button>
-                  <button className={classes.updateBtn}>Update</button>
+                  <button
+                    onClick={() => deleteHandler(bookDetails.book_id)}
+                    className={classes.deleteBtn}
+                  >
+                    <i class="fa fa-trash-o" style={{ fontSize: "18px" }}></i>{" "}
+                    Delete
+                  </button>
+                  <button className={classes.updateBtn}>
+                    <i class="fa fa-edit" style={{ fontSize: "18px" }}></i>{" "}
+                    Update
+                  </button>
                 </div>
               )}
             </p>

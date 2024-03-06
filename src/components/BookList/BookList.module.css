@@ -19,7 +19,7 @@
   height: 280px;
   margin: 8px;
   margin-top: 66px;
-  border-radius: 18px;
+  border-radius: 3px 16px 16px 3px;
   cursor: pointer;
   transition: 300ms;
 }
@@ -48,6 +48,14 @@
   -webkit-transition: background-color 1000ms linear;
   -ms-transition: background-color 1000ms linear;
   transition: background-color 1000ms linear;
+}
+
+.noBookPara{
+  text-align: center;
+  justify-content: center;
+  margin-top: 50px;
+  font-size: 22px;
+  font-weight: 400;
 }
 
 .bookTitle {

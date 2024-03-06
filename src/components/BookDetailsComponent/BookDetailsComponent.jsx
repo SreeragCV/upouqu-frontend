@@ -13,12 +13,17 @@ function BookDetailsComponent({ bookDetails, userDetails }) {
   async function deleteHandler(id) {
     try {
       const proceed = window.confirm("Are you sure");
-
+      const token = localStorage.getItem("token");
       if (proceed) {
         const deleteBook = await axios.delete(
-          `http://localhost:8080/book/${id}`
+          `http://localhost:8080/book/${id}`,
+          {
+            headers: {
+              token,
+            },
+          }
         );
-        navigate('/books')
+        navigate("/books");
       }
     } catch (e) {
       console.log(e);

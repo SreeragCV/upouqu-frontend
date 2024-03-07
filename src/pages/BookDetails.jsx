@@ -25,8 +25,6 @@ function BookDetails() {
     }
   }, []);
 
-  console.log(fetchBookDetails);
-
   return (
     <div className=" mt-28">
       {fetchBookDetails && (

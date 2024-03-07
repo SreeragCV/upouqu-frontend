@@ -1,18 +1,23 @@
 import React, { useState } from "react";
 import classes from "./BookDetailsComponent.module.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { addItem } from "../../utils/store/CartSlice";
 
 function BookDetailsComponent({ bookDetails, userDetails }) {
   const [showMore, setShowMore] = useState(false);
   const data = useSelector((state) => state.auth);
+  const cart = useSelector((state) => state.cart)
   const currentUser = userDetails.user_id === data.user_id;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   async function deleteHandler(id) {
     try {
-      const proceed = window.confirm("Are you sure you want to delete this book?");
+      const proceed = window.confirm(
+        "Are you sure you want to delete this book?"
+      );
       const token = localStorage.getItem("token");
       if (proceed) {
         const deleteBook = await axios.delete(
@@ -28,6 +33,10 @@ function BookDetailsComponent({ bookDetails, userDetails }) {
     } catch (e) {
       console.log(e);
     }
+  }
+
+  function addBooks(){
+    dispatch(addItem({bookDetails}));
   }
 
   return (

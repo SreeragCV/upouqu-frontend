@@ -12,7 +12,7 @@ function BookDetailsComponent({ bookDetails, userDetails }) {
 
   async function deleteHandler(id) {
     try {
-      const proceed = window.confirm("Are you sure");
+      const proceed = window.confirm("Are you sure you want to delete this book?");
       const token = localStorage.getItem("token");
       if (proceed) {
         const deleteBook = await axios.delete(

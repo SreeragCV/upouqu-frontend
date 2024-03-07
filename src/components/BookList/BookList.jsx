@@ -44,7 +44,7 @@ function BookList({ title }) {
       <Link>
         <h2 className={classes.title}>{title}</h2>
       </Link>
-      {fetchBooks.length < 1 && <p className={classes.noBookPara}>No books available...</p>}
+      {!isLoading && fetchBooks.length < 1 && <p className={classes.noBookPara}>No books available...</p>}
       {isLoading && <div className={classes.loader}></div>}
       <div className={classes.posters}>
         {!isLoading &&

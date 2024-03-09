@@ -1,5 +1,6 @@
 import AuthForm from "../components/AuthForm/AuthForm";
 import { json } from "react-router-dom";
+import Modal from "../components/Modal/Modal";
 
 function Login() {
   return (

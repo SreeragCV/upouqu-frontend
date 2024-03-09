@@ -14,8 +14,6 @@ import MenuItem from "@mui/material/MenuItem";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { handleLogout } from "../../utils/store/AuthSlice";
-import cartImage from "../../assets/shopping-cart.png";
-
 
 function Header() {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -24,11 +22,12 @@ function Header() {
   const id = useSelector((state) => state.auth.user_id);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   let pages = ["home", "books", "contribute", "genres"];
-  if(data.role === 'super-admin'){
-     pages = ["home", "books", "contribute", "genres", "dashboard"];
+  if (data.role === "super-admin") {
+    pages = ["home", "books", "contribute", "genres", "dashboard"];
   }
-  
+
   // console.log(data);
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -186,15 +185,6 @@ function Header() {
                   <Avatar src="/broken-image.jpg" />
                 </IconButton>
               </Tooltip>
-              <IconButton
-                sx={{ display: { xs: "none", md: "inline-flex" } }}
-                size="medium"
-                aria-haspopup="true"
-                color="inherit"
-              >
-                <img className="ml-2" width="38px" src={cartImage} alt="cart" />
-                <p style={{ fontSize: "18px", marginBottom: "24px" }}>1</p>
-              </IconButton>
               <Menu
                 sx={{ mt: "45px" }}
                 id="menu-appbar"

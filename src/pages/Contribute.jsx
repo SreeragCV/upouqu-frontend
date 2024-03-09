@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import BookForm from "../components/BookForm/BookForm";
-import bgImage from "../assets/bgBook.jpg";
 
 function Contribute() {
   const data = useSelector((state) => state.auth);

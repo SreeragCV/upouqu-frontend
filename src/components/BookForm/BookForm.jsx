@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { isNumber, textLimit } from "../../utils/validations";
 import { useTheme } from "@mui/material/styles";
@@ -7,7 +7,13 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import {useNavigate} from 'react-router-dom'
+import {
+  Button,
+  Grid,
+  IconButton,
+  Typography
+} from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
 
 const inputStyle =
   "bg-gray-700 text-gray-200 border-0 rounded-md p-3 mt-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150";
@@ -18,7 +24,7 @@ const submitStyle =
 const fileStyle =
   "bg-gray-700 mt-1 text-gray-200 border-0 rounded-md p-3 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150";
 
-function BookForm() {
+function BookForm({ method, value }) {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
@@ -35,7 +41,8 @@ function BookForm() {
     description: false,
   });
   const theme = useTheme();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const params = useParams();
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -77,6 +84,16 @@ function BookForm() {
     };
   }
 
+  useEffect(() => {
+    if (value) {
+      setName(value.book_name)
+      setGenreName(value.genre)
+      setPrice(value.price)
+      setDescription(value.description)
+      setImage(value.image_url)
+    }
+  }, []);
+
   const handleChange = (event) => {
     const {
       target: { value },
@@ -93,7 +110,8 @@ function BookForm() {
   const nameIsInvalid = didEdit.name && name === "";
   const genreIsInvalid = didEdit.genre && genreName.length <= 0;
   const priceIsInvalid = (didEdit.price && price === "") || !isNumber(price);
-  const descriptionIsInvalid = didEdit.description && (description === "" || textLimit(description, 850));
+  const descriptionIsInvalid =
+    didEdit.description && (description === "" || textLimit(description, 850));
 
   const disableButton =
     name === "" ||
@@ -110,7 +128,6 @@ function BookForm() {
       let fileErrors = {};
 
       if (!image || !image.type.startsWith("image/")) {
-        console.log("hello");
         fileErrors.image = "Choose a proper image ( .jpg, .png, .jpeg etc...)";
       }
 
@@ -132,6 +149,21 @@ function BookForm() {
       formData.append("book", bookPdf);
       const token = localStorage.getItem("token");
 
+      if (method === "PATCH") {
+        console.log("updateeeeeeeeeeeeeeeeeeeeeeee");
+        const response = await axios.patch(
+          `http://localhost:8080/book/${params.id}`,
+          formData,
+          {
+            headers: {
+              token: token,
+            },
+          }
+        );
+        // navigate(`/books/${id}`);
+        return response;
+      }
+
       const response = await axios.post(
         "http://localhost:8080/contribute",
         formData,
@@ -140,8 +172,7 @@ function BookForm() {
         }
       );
       const id = response.data.book_id;
-      navigate(`/books/${id}`)
-
+      navigate(`/books/${id}`);
     } catch (e) {
       console.log(e);
       if (!e.status === 422) {
@@ -161,6 +192,11 @@ function BookForm() {
     });
   }
 
+  const handleImageDelete = () => {
+    // Filter out the deleted image URL
+    setImage("");
+  };
+
   if (serverError) {
     return <CustomError />;
   }
@@ -169,7 +205,7 @@ function BookForm() {
     <div className="flex flex-col items-center justify-center h-screen dark">
       <div className="w-full max-w-2xl bg-gray-800 rounded-lg shadow-md p-6 mt-20">
         <h2 className="text-2xl font-bold text-gray-200 mb-4">
-          Submit your book!
+          {value ? "Update your book" : "Submit your book here!"}
         </h2>
         <form className="flex flex-col" onSubmit={handleSubmit}>
           <input
@@ -177,6 +213,7 @@ function BookForm() {
             placeholder="Book Name"
             className={inputStyle}
             type="text"
+            value={name}
             onChange={(e) => {
               setName(e.target.value);
               setDidEdit((prevEdit) => {
@@ -193,7 +230,7 @@ function BookForm() {
           ) : null}
 
           <div className="mt-4">
-            <FormControl style={{display:'flex'}}>
+            <FormControl style={{ display: "flex" }}>
               <InputLabel
                 style={{ color: "rgb(229, 231, 235, .5)" }}
                 id="demo-multiple-name-label"
@@ -229,6 +266,7 @@ function BookForm() {
 
           <input
             name="price"
+            value={price}
             placeholder="Price"
             className={inputStyle}
             type="text"
@@ -253,6 +291,7 @@ function BookForm() {
             placeholder="Description"
             className={inputStyle}
             name="description"
+            value={description}
             onChange={(e) => {
               setDescription(e.target.value);
               setDidEdit((prevEdit) => {
@@ -299,13 +338,31 @@ function BookForm() {
           {fileError && fileError.image ? (
             <p className="mt-1 text-sm text-red-500">{fileError.image}</p>
           ) : null}
-
+          <Grid item xs={12}>
+            <h3 style={{color: "white", margin: "8px"}}>Remove images</h3>
+              <div
+                style={{ position: "relative", display: "inline-block" }}
+              >
+                <img
+                  src={image}
+                  alt="Preview"
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    marginRight: "10px",
+                  }}
+                />
+                <button onClick={handleImageDelete}> <i class="fa fa-trash-o" style={{ fontSize: "18px", color: "white" }}></i></button>
+              </div>
+          </Grid>
           <button
-            className={disableButton || isSubmitting ? disabledStyle : submitStyle}
+            className={
+              disableButton || isSubmitting ? disabledStyle : submitStyle
+            }
             type="submit"
             disabled={disableButton || isSubmitting}
           >
-            {isSubmitting ? 'Submitting...' : 'Submit'}
+            {isSubmitting ? "Submitting..." : "Submit"}
           </button>
         </form>
       </div>

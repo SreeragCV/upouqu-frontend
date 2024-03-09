@@ -1,5 +1,5 @@
 import BookList from "../components/BookList/BookList";
-import Modal from "../components/Modal/Modal";
+
 const genres = [
   { title: "Horror" },
   { title: "Psychology" },
@@ -18,11 +18,11 @@ const genres = [
 
 function Books() {
   return (
-      <div className="mt-24">
-        {genres.map((genre) => {
-          return <BookList key={genre.title} title={genre.title} />;
-        })}
-      </div>
+    <div className="mt-24">
+      {genres.map((genre) => {
+        return <BookList key={genre.title} title={genre.title} />;
+      })}
+    </div>
   );
 }
 

@@ -3,12 +3,10 @@ import classes from "./BookDetailsComponent.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { addItem } from "../../utils/store/CartSlice";
 
 function BookDetailsComponent({ bookDetails, userDetails }) {
   const [showMore, setShowMore] = useState(false);
   const data = useSelector((state) => state.auth);
-  const cart = useSelector((state) => state.cart)
   const currentUser = userDetails.user_id === data.user_id;
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -35,8 +33,8 @@ function BookDetailsComponent({ bookDetails, userDetails }) {
     }
   }
 
-  function addBooks(){
-    dispatch(addItem({bookDetails}));
+  function editBook(){
+    navigate(`/books/${bookDetails.book_id}/edit`)
   }
 
   return (
@@ -88,11 +86,11 @@ function BookDetailsComponent({ bookDetails, userDetails }) {
                     onClick={() => deleteHandler(bookDetails.book_id)}
                     className={classes.deleteBtn}
                   >
-                    <i class="fa fa-trash-o" style={{ fontSize: "18px" }}></i>{" "}
+                    <i class="fa fa-trash-o" style={{ fontSize: "18px" }}></i>
                     Delete
                   </button>
-                  <button className={classes.updateBtn}>
-                    <i class="fa fa-edit" style={{ fontSize: "18px" }}></i>{" "}
+                  <button onClick={editBook} className={classes.updateBtn}>
+                    <i class="fa fa-edit" style={{ fontSize: "18px" }}></i>
                     Update
                   </button>
                 </div>

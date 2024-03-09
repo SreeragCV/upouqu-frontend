@@ -15,10 +15,10 @@ import RedirectingPage from "./pages/RedirectingPage.jsx";
 import Profile from "./pages/Profile.jsx";
 import BookDetails from "./pages/BookDetails.jsx";
 import DashBoardHeader from "./pages/DashBoardHeader.jsx";
-import UserList from "./components/UserList/UserList.jsx";
 import UsersPage from "./pages/UsersPage.jsx";
 import GenresPage from "./pages/GenresPage.jsx";
 import BookCount from "./pages/BookCount.jsx";
+import EditBook from "./pages/EditBook.jsx";
 
 function App() {
   const dispatch = useDispatch();
@@ -97,6 +97,10 @@ function App() {
         {
           path: "books/:id",
           element: <BookDetails />,
+        },
+        {
+          path: "books/:id/edit",
+          element: <EditBook/>
         },
         {
           path: "redirect",

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import CustomError from "./CustomError";
+import BookEditForm from "../components/BookEditForm/BookEditForm";
 
 function EditBook() {
   const params = useParams();
@@ -33,7 +34,7 @@ console.log(fetchBookDetails);
   
   return (
     <div>
-      {data.isVerified && data.user_id === fetchBookDetails.user_id && <BookForm method="PATCH" value={fetchBookDetails} />}
+      {data.isVerified && data.user_id === fetchBookDetails.user_id && <BookEditForm value={fetchBookDetails} />}
     </div>
   );
 }

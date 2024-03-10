@@ -7,6 +7,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { Button, Grid, IconButton, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 
 const inputStyle =
@@ -18,7 +19,7 @@ const submitStyle =
 const fileStyle =
   "bg-gray-700 mt-1 text-gray-200 border-0 rounded-md p-3 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150";
 
-function BookForm() {
+function BookEditForm({ value }) {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
@@ -78,6 +79,17 @@ function BookForm() {
     };
   }
 
+  useEffect(() => {
+    if (value) {
+      setName(value.book_name);
+      setGenreName(value.genre);
+      setPrice(value.price);
+      setDescription(value.description);
+      setImage(value.image_url);
+      setBookPdf(value.pdf_url);
+    }
+  }, []);
+
   const handleChange = (event) => {
     const {
       target: { value },
@@ -109,20 +121,6 @@ function BookForm() {
       event.preventDefault();
 
       setIsSubmitting(true);
-      let fileErrors = {};
-
-      if (!image || !image.type.startsWith("image/")) {
-        fileErrors.image = "Choose a proper image ( .jpg, .png, .jpeg etc...)";
-      }
-
-      if (!bookPdf || bookPdf.type !== "application/pdf") {
-        console.log("pdf");
-        fileErrors.pdf = "Choose a proper pdf (eg- .pdf)";
-      }
-
-      if (Object.keys(fileErrors).length > 0) {
-        return setFileError(fileErrors);
-      }
 
       const formData = new FormData();
       formData.append("book_name", name);
@@ -132,17 +130,19 @@ function BookForm() {
       formData.append("image", image);
       formData.append("book", bookPdf);
       const token = localStorage.getItem("token");
-      
-      const response = await axios.post(
-        "http://localhost:8080/contribute",
+      console.log(formData.get("genre"));
+
+      const response = await axios.patch(
+        `http://localhost:8080/book/${params.id}`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data", token: token },
         }
-        );
-        const id = response.data.book_id;
-        navigate(`/books/${id}`);
-      } catch (e) {
+      );
+      const id = response.data.book_id;
+      setIsSubmitting(false);
+      console.log(id);
+    } catch (e) {
       console.log(e);
       if (!e.status === 422) {
         setServerError(e);
@@ -151,7 +151,8 @@ function BookForm() {
       setIsSubmitting(false);
     }
   };
-  
+  console.log(image);
+
   function handleBlur(identifier) {
     setDidEdit((prevEdit) => {
       return {
@@ -161,6 +162,9 @@ function BookForm() {
     });
   }
 
+  const handleImageDelete = () => {
+    setImage("");
+  };
 
   if (serverError) {
     return <CustomError />;
@@ -170,9 +174,9 @@ function BookForm() {
     <div className="flex flex-col items-center justify-center h-screen dark">
       <div className="w-full max-w-2xl bg-gray-800 rounded-lg shadow-md p-6 mt-20">
         <h2 className="text-2xl font-bold text-gray-200 mb-4">
-          Submit your book here!
+          Update your book
         </h2>
-        <form className="flex flex-col" onSubmit={handleSubmit}>
+        <form method="PATCH" className="flex flex-col" onSubmit={handleSubmit}>
           <input
             name="book_name"
             placeholder="Book Name"
@@ -303,6 +307,26 @@ function BookForm() {
           {fileError && fileError.image ? (
             <p className="mt-1 text-sm text-red-500">{fileError.image}</p>
           ) : null}
+          <Grid item xs={12}>
+            <h3 style={{ color: "white", margin: "8px" }}>Remove images</h3>
+            <div style={{ position: "relative", display: "inline-block" }}>
+              <img
+                src={image}
+                alt="Preview"
+                style={{
+                  width: "100px",
+                  height: "100px",
+                  marginRight: "10px",
+                }}
+              />
+              <button type="button" onClick={handleImageDelete}>
+                <i
+                  className="fa fa-trash-o"
+                  style={{ fontSize: "18px", color: "white" }}
+                ></i>
+              </button>
+            </div>
+          </Grid>
           <button
             className={
               disableButton || isSubmitting ? disabledStyle : submitStyle
@@ -318,4 +342,4 @@ function BookForm() {
   );
 }
 
-export default BookForm;
+export default BookEditForm;

@@ -122,6 +122,26 @@ function BookEditForm({ value }) {
 
       setIsSubmitting(true);
 
+      let fileErrors = {};
+
+      if (!image) {
+        fileErrors.image = "Choose a proper image ( .jpg, .png, .jpeg etc...)";
+      }
+      if (image.type && !image.type.startsWith("image/")) {
+        fileErrors.image = "Choose a proper image ( .jpg, .png, .jpeg etc...)";
+      }
+
+      if (!bookPdf) {
+        fileErrors.pdf = "Choose a proper pdf (eg- .pdf)";
+      }
+      if (bookPdf.type && bookPdf.type !== "application/pdf") {
+        fileErrors.pdf = "Choose a proper pdf (eg- .pdf)";
+      }
+
+      if (Object.keys(fileErrors).length > 0) {
+        return setFileError(fileErrors);
+      }
+
       const formData = new FormData();
       formData.append("book_name", name);
       formData.append("genre", genreName);
@@ -151,7 +171,9 @@ function BookEditForm({ value }) {
       setIsSubmitting(false);
     }
   };
-  console.log(image);
+  console.log(!image);
+  // console.log(!bookPdf);
+  // console.log(fileError);
 
   function handleBlur(identifier) {
     setDidEdit((prevEdit) => {

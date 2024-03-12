@@ -1,11 +1,21 @@
+import { useSelector } from "react-redux";
 import AuthForm from "../components/AuthForm/AuthForm";
-import { json } from "react-router-dom";
-import Modal from "../components/Modal/Modal";
+import { json, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function Login() {
+  const isVerified = useSelector((state) => state.auth.isVerified);
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    if (isVerified) {
+      navigate("/");
+    }
+  }, [])
+
   return (
     <div>
-      <AuthForm />
+     {!isVerified && <AuthForm />}
     </div>
   );
 }

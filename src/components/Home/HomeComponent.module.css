@@ -11,7 +11,7 @@
     top: 40%;
     font-size: 80px;
     font-family: "Protest Revolution", sans-serif;
-    background: linear-gradient(to right, #ffffff, rgb(0, 255, 234));
+    background: linear-gradient(to right, #000000, rgb(255, 221, 0));
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
 }

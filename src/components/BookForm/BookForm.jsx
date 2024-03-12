@@ -8,6 +8,8 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast, Bounce } from "react-toastify";
+
 
 const inputStyle =
   "bg-gray-700 text-gray-200 border-0 rounded-md p-3 mt-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150";
@@ -141,6 +143,17 @@ function BookForm() {
         }
         );
         const id = response.data.book_id;
+        toast.success("Book uploaded successfully!", {
+          position: "bottom-center",
+          autoClose: 2000,
+          // hideProgressBar: false,
+          // closeOnClick: true,
+          // pauseOnHover: true,
+          // draggable: true,
+          // progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
         navigate(`/books/${id}`);
       } catch (e) {
       console.log(e);

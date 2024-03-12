@@ -160,6 +160,7 @@ function BookEditForm({ value }) {
         }
       );
       const id = response.data.book_id;
+      navigate(`/books/${id}`)
       setIsSubmitting(false);
       console.log(id);
     } catch (e) {
@@ -329,26 +330,28 @@ function BookEditForm({ value }) {
           {fileError && fileError.image ? (
             <p className="mt-1 text-sm text-red-500">{fileError.image}</p>
           ) : null}
-          <Grid item xs={12}>
-            <h3 style={{ color: "white", margin: "8px" }}>Remove images</h3>
-            <div style={{ position: "relative", display: "inline-block" }}>
-              <img
-                src={image}
-                alt="Preview"
-                style={{
-                  width: "100px",
-                  height: "100px",
-                  marginRight: "10px",
-                }}
-              />
-              <button type="button" onClick={handleImageDelete}>
-                <i
-                  className="fa fa-trash-o"
-                  style={{ fontSize: "18px", color: "white" }}
-                ></i>
-              </button>
-            </div>
-          </Grid>
+          {image && (
+            <Grid item xs={12}>
+              <h3 style={{ color: "white", marginTop: "8px", marginBottom: "6px" }}>Remove Image</h3>
+              <div style={{ position: "relative", display: "inline-block" }}>
+                <img
+                  src={image}
+                  alt="Preview"
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    marginRight: "10px",
+                  }}
+                />
+                <button type="button" onClick={handleImageDelete}>
+                  <i
+                    className="fa fa-trash-o"
+                    style={{ fontSize: "18px", color: "white" }}
+                  ></i>
+                </button>
+              </div>
+            </Grid>
+          )}
           <button
             className={
               disableButton || isSubmitting ? disabledStyle : submitStyle

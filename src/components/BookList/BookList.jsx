@@ -1,10 +1,8 @@
 import classes from "./BookList.module.css";
-import DUMMY_DATA from "../../data/DUMMY_DATA";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import CustomError from "../../pages/CustomError";
-import Modal from "../Modal/Modal";
 
 function BookList({ title }) {
   const [fetchBooks, setFetchBooks] = useState([]);

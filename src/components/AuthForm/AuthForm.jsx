@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleLogin } from "../../utils/store/AuthSlice.js";
 import loginImage from "../../assets/bg7.jpg";
 import signupImage from "../../assets/bg4.jpg";
+import { toast, Bounce } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function AuthForm({ signup }) {
   const data = useActionData();
@@ -34,12 +36,22 @@ export default function AuthForm({ signup }) {
       if (data && data.id && token) {
         const id = data.id;
         const role = data.role;
-        const full_name = data.full_name
-        console.log(role);
+        const full_name = data.full_name;
+        toast.success("Login Successfull!", {
+          position: "bottom-center",
+          autoClose: 2000,
+          // hideProgressBar: false,
+          // closeOnClick: true,
+          // pauseOnHover: true,
+          // draggable: true,
+          // progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
         dispatch(handleLogin({ id, role, full_name }));
         navigate("/");
       }
-    } 
+    }
   }, [verify, data, token]);
 
   const [enteredValues, setEnteredValues] = useState({

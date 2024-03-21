@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { handleLogout } from "../../utils/store/AuthSlice";
+import { toast } from "react-toastify";
 
 function Header() {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -46,6 +47,11 @@ function Header() {
 
   function handleLogoutButton() {
     dispatch(handleLogout());
+    toast.success("Logged out successfully", {
+      position: "top-center",
+      autoClose: 2000,
+      closeButton: true
+    })
     return navigate("/");
   }
 

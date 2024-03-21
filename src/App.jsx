@@ -1,5 +1,4 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import "./App.css";
 import Home from "./pages/Home.jsx";
 import Books from "./pages/Books.jsx";
 import Contribute from "./pages/Contribute.jsx";
@@ -20,8 +19,8 @@ import UsersPage from "./pages/UsersPage.jsx";
 import GenresPage from "./pages/GenresPage.jsx";
 import BookCount from "./pages/BookCount.jsx";
 import EditBook from "./pages/EditBook.jsx";
-import { ToastContainer } from "react-toastify";
-// import { ToastContainer } from "react-toastify";
+import PdfViewer from "./components/pdfViewer/PdfViewer.jsx";
+import ChatHome from "./pages/ChatHome.jsx";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.js",
@@ -110,6 +109,14 @@ function App() {
         {
           path: "books/:id/edit",
           element: <EditBook />,
+        },
+        {
+          path: "books/:id/read",
+          element: <PdfViewer/>
+        },
+        {
+          path: "messages",
+          element: <ChatHome/>
         },
         {
           path: "redirect",

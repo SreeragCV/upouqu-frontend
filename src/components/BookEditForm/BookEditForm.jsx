@@ -9,6 +9,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { Button, Grid, IconButton, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const inputStyle =
   "bg-gray-700 text-gray-200 border-0 rounded-md p-3 mt-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150";
@@ -121,6 +122,7 @@ function BookEditForm({ value }) {
       event.preventDefault();
 
       setIsSubmitting(true);
+      const loadId = toast.loading("please wait..", { position: "top-center" });
 
       let fileErrors = {};
 
@@ -160,8 +162,16 @@ function BookEditForm({ value }) {
         }
       );
       const id = response.data.book_id;
-      navigate(`/books/${id}`)
+      navigate(`/books/${id}`);
       setIsSubmitting(false);
+      toast.update(loadId, {
+        render: "Book updated successfully!",
+        type: "success",
+        isLoading: false,
+        closeButton: true,
+        autoClose: 2000,
+        position: "top-center",
+      });
       console.log(id);
     } catch (e) {
       console.log(e);
@@ -332,7 +342,15 @@ function BookEditForm({ value }) {
           ) : null}
           {image && (
             <Grid item xs={12}>
-              <h3 style={{ color: "white", marginTop: "8px", marginBottom: "6px" }}>Remove Image</h3>
+              <h3
+                style={{
+                  color: "white",
+                  marginTop: "8px",
+                  marginBottom: "6px",
+                }}
+              >
+                Remove Image
+              </h3>
               <div style={{ position: "relative", display: "inline-block" }}>
                 <img
                   src={image}

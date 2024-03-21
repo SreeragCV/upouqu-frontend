@@ -1,7 +1,7 @@
 .row {
   margin: 5rem;
-  margin-top: 3rem;
-  margin-bottom: 4rem;
+  margin-top: 2.4rem;
+  margin-bottom: 2rem;
 }
 
 .posters {
@@ -18,11 +18,16 @@
   width: 200px;
   height: 280px;
   margin: 8px;
-  margin-top: 66px;
-  border-radius: 16px;
+  margin-top: 2.8rem;
+  border-radius: 16px 16px 16px 0px;
   cursor: pointer;
   transition: 300ms;
 }
+
+/* .bookContainer{
+  width: 160px;
+  text-align: center;
+} */
 
 .poster:hover {
   cursor: pointer;
@@ -59,8 +64,10 @@
 }
 
 .bookTitle {
+  width: 160px;
   margin-top: 12px;
-  margin-left: 10px;
+  margin-left: 9px;
+  text-align: start;
   font-weight: 500;
 }
 
@@ -101,9 +108,7 @@
 }
 
 @media screen and (max-width: 440px) {
-  .posters {
-    justify-content: center;
-  }
+  
   .poster {
     max-width: 7rem;
     max-height: 10rem;

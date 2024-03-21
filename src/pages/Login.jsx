@@ -7,17 +7,13 @@ function Login() {
   const isVerified = useSelector((state) => state.auth.isVerified);
   const navigate = useNavigate();
 
-  useEffect(()=>{
+  useEffect(() => {
     if (isVerified) {
       navigate("/");
     }
-  }, [])
+  }, []);
 
-  return (
-    <div>
-     {!isVerified && <AuthForm />}
-    </div>
-  );
+  return <div>{!isVerified && <AuthForm />}</div>;
 }
 
 export default Login;
@@ -50,6 +46,5 @@ export async function action({ request, params }) {
   const responseToken = response.headers.get("Authorization");
   localStorage.setItem("token", responseToken);
   const resData = response.json();
-  console.log(resData);
   return resData;
 }

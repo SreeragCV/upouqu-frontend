@@ -1,20 +1,17 @@
 import React, { useState } from "react";
 import classes from "./BookDetailsComponent.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import PdfViewer from "../pdfViewer/PdfViewer";
+import { toast } from "react-toastify";
+import Modal from "../Modal/Modal";
 
-function BookDetailsComponent({ bookDetails, userDetails }) {
+function BookDetailsComponent({ bookDetails }) {
   const [showMore, setShowMore] = useState(false);
-  const [read, setRead] = useState(false)
   const data = useSelector((state) => state.auth);
-  const currentUser = userDetails.user_id === data.user_id;
+  const currentUser = bookDetails.user_id === data.user_id;
   const navigate = useNavigate();
-
-  function openBook(){
-    setRead(read => !read)
-  }
+  const [showModal, setShowModal] = useState(false);
 
   async function deleteHandler(id) {
     try {
@@ -31,6 +28,10 @@ function BookDetailsComponent({ bookDetails, userDetails }) {
             },
           }
         );
+        toast.success("Book deleted successfully!", {
+          position: "top-center",
+          autoClose: 2000,
+        });
         navigate("/books");
       }
     } catch (e) {
@@ -38,15 +39,38 @@ function BookDetailsComponent({ bookDetails, userDetails }) {
     }
   }
 
-  function editBook(){
-    navigate(`/books/${bookDetails.book_id}/edit`)
+  function handleLogin() {
+    navigate("/login");
   }
 
-  console.log(bookDetails.pdf_url);
+  function openModal() {
+    setShowModal(true);
+  }
+
+  function removModal() {
+    setShowModal(false);
+  }
+
+  function editBook() {
+    navigate(`/books/${bookDetails.book_id}/edit`);
+  }
 
   return (
     <>
-      {bookDetails && userDetails && (
+      <Modal
+        className="mt-24 p-10 text-center text-xl"
+        open={showModal}
+        onClose={removModal}
+      >
+        <span className=" absolute top-2 right-3 cursor-pointer" onClick={removModal}>
+          &times;
+        </span>
+        <h3 className="mb-1">You must login to read books...</h3>
+        <p className=" text-cyan-800 p-1 cursor-pointer" onClick={handleLogin}>
+          login here
+        </p>
+      </Modal>
+      {bookDetails && (
         <div className={classes.top}>
           <div className={classes.container}>
             <div className={classes.card}>
@@ -55,11 +79,25 @@ function BookDetailsComponent({ bookDetails, userDetails }) {
                 src={bookDetails.image_url}
                 alt=""
               />
-              <p className={classes.full_name}>by {userDetails.full_name}</p>
+              <p className={classes.full_name}>by {bookDetails.full_name}</p>
               <div className={classes.btnDiv}>
-                <button onClick={openBook} className={classes.button}>
-                  <span>{read ? "Close" : "Read"}</span>
-                </button>
+                {data && data.isVerified ? (
+                  <button
+                    onClick={() =>
+                      window.open(
+                        `/books/${bookDetails.book_id}/read`,
+                        "_blank"
+                      )
+                    }
+                    className={classes.button}
+                  >
+                    <span>Read</span>
+                  </button>
+                ) : (
+                  <button onClick={openModal} className={classes.button}>
+                    <span>Read</span>
+                  </button>
+                )}
                 <button className={classes.button}>
                   <span>Save</span>
                 </button>
@@ -104,7 +142,6 @@ function BookDetailsComponent({ bookDetails, userDetails }) {
               )}
             </p>
           </div>
-          {read ? <PdfViewer file={bookDetails.pdf_url}/> : null}
         </div>
       )}
     </>

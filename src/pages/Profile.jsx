@@ -30,6 +30,7 @@ function Profile() {
             token: token,
           },
         });
+        console.log(response);
         let errors = {}
         if (response.status === 500) {
           errors.title = 'ERROR!!!!'

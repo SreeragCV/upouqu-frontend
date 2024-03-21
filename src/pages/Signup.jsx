@@ -15,7 +15,7 @@ function Signup() {
 
   return (
     <div>
-     {!isVerified && <AuthForm />}
+     {!isVerified && <AuthForm signup />}
     </div>
   );
 }

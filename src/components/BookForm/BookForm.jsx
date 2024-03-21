@@ -10,7 +10,6 @@ import Select from "@mui/material/Select";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast, Bounce } from "react-toastify";
 
-
 const inputStyle =
   "bg-gray-700 text-gray-200 border-0 rounded-md p-3 mt-4 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150";
 const disabledStyle =
@@ -97,7 +96,7 @@ function BookForm() {
   const genreIsInvalid = didEdit.genre && genreName.length <= 0;
   const priceIsInvalid = (didEdit.price && price === "") || !isNumber(price);
   const descriptionIsInvalid =
-    didEdit.description && (description === "" || textLimit(description, 850));
+    didEdit.description && (description === "" || textLimit(description, 1000));
 
   const disableButton =
     name === "" ||
@@ -111,6 +110,9 @@ function BookForm() {
       event.preventDefault();
 
       setIsSubmitting(true);
+      const toastId = toast.loading("please wait..", {
+        position: "top-center",
+      });
       let fileErrors = {};
 
       if (!image || !image.type.startsWith("image/")) {
@@ -134,28 +136,26 @@ function BookForm() {
       formData.append("image", image);
       formData.append("book", bookPdf);
       const token = localStorage.getItem("token");
-      
+
       const response = await axios.post(
         "http://localhost:8080/contribute",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data", token: token },
         }
-        );
-        const id = response.data.book_id;
-        toast.success("Book uploaded successfully!", {
-          position: "bottom-center",
-          autoClose: 2000,
-          // hideProgressBar: false,
-          // closeOnClick: true,
-          // pauseOnHover: true,
-          // draggable: true,
-          // progress: undefined,
-          theme: "light",
-          transition: Bounce,
-        });
-        navigate(`/books/${id}`);
-      } catch (e) {
+      );
+      const id = response.data.book_id;
+      toast.update(toastId, {
+        render: "Book uploaded successfully!",
+        type: "success",
+        isLoading: false,
+        closeButton: true,
+        autoClose: 2000,
+        position: "top-center",
+      });
+      setIsSubmitting(false);
+      navigate(`/books/${id}`);
+    } catch (e) {
       console.log(e);
       if (!e.status === 422) {
         setServerError(e);
@@ -164,7 +164,7 @@ function BookForm() {
       setIsSubmitting(false);
     }
   };
-  
+
   function handleBlur(identifier) {
     setDidEdit((prevEdit) => {
       return {
@@ -173,7 +173,6 @@ function BookForm() {
       };
     });
   }
-
 
   if (serverError) {
     return <CustomError />;
@@ -283,7 +282,7 @@ function BookForm() {
           ></textarea>
           {descriptionIsInvalid ? (
             <p className="mt-1 text-sm text-red-500">
-              Description is required (upto 850 words)
+              Description is required (upto 1000 words)
             </p>
           ) : null}
 

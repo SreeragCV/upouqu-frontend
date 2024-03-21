@@ -1,33 +1,62 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Document, Page } from "react-pdf";
-import pdf from "../../assets/pdf.pdf";
+import { useParams } from "react-router-dom";
+import classes from "./PdfViewer.module.css";
 
-function PdfViewer({ file }) {
+function PdfViewer() {
   const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
+  const [data, setData] = useState("");
+
+  const params = useParams();
+
+  useEffect(() => {
+    async function fetchBook() {
+      const response = await axios.get(
+        `http://localhost:8080/books/${params.id}`
+      );
+      const book = response.data.bookDetails;
+      setData(book);
+    }
+
+    fetchBook();
+  }, []);
 
   function onDocumentSuccess({ numPages }) {
     setNumPages(numPages);
   }
 
-  function prevPage(){
-    setPageNumber(pageNumber - 1 <= 1 ? 1 : pageNumber - 1)
-  }
-
-  function nextPage(){
-    setPageNumber(pageNumber + 1 >= numPages ? pageNumber : pageNumber + 1)
-  }
-
   return (
-    <div className="flex items-center justify-center mt-24 flex-col">
-      <div className="flex items-center">
-        <button onClick={prevPage}>left</button>....
-        <button onClick={nextPage}>right</button>
-      </div>
-      <Document file={file} onLoadSuccess={onDocumentSuccess}>
-        <Page pageNumber={pageNumber} />
-      </Document>
-    </div>
+    <>
+      {data && (
+        <div className={classes.container}>
+          {data && numPages && (
+            <div className={classes.title}>
+              <h1>{data.book_name.toUpperCase()}</h1>
+            </div>
+          )}
+          <div className={classes.pdfContainer}>
+            <Document file={data.pdf_url} onLoadSuccess={onDocumentSuccess}>
+              {Array.apply(null, Array(numPages))
+                .map((x, i) => i + 1)
+                .map((page, i) => {
+                  return (
+                    <>
+                      <p>{i + 1}</p>
+                      <Page
+                        key={i}
+                        pageNumber={page}
+                        renderTextLayer={false}
+                        renderAnnotationLayer={false}
+                        />
+                    </>
+                  );
+                })}
+            </Document>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

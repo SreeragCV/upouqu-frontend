@@ -37,9 +37,9 @@ export default function AuthForm({ signup }) {
         const id = data.id;
         const role = data.role;
         const full_name = data.full_name;
-        toast.success("Login Successfull!", {
+        toast.success(signup ? "Welcome to UPOUQU" :"Welcome back to UPOUQU!", {
           position: "bottom-center",
-          autoClose: 2000,
+          autoClose: 4000,
           // hideProgressBar: false,
           // closeOnClick: true,
           // pauseOnHover: true,

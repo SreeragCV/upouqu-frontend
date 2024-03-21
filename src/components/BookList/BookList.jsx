@@ -51,7 +51,7 @@ function BookList({ title }) {
             fetchBooks &&
             fetchBooks.length > 0 &&
             fetchBooks.map((book, i) => (
-              <Link to={`/books/${book.book_id}`} key={book.book_id}>
+              <Link className={classes.bookContainer} to={`/books/${book.book_id}`} key={book.book_id}>
                 <img
                   loading="lazy"
                   className={classes.poster}

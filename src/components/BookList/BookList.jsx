@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import CustomError from "../../pages/CustomError";
+import Loader from "../Loader/Loader";
 
 function BookList({ title }) {
   const [fetchBooks, setFetchBooks] = useState([]);
@@ -45,7 +46,7 @@ function BookList({ title }) {
         {!isLoading && fetchBooks.length < 1 && (
           <p className={classes.noBookPara}>No books available...</p>
         )}
-        {isLoading && <div className={classes.loader}></div>}
+        {isLoading && <Loader/>}
         <div className={classes.posters}>
           {!isLoading &&
             fetchBooks &&

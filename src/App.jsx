@@ -44,7 +44,6 @@ function App() {
           dispatch(handleLogout());
         }
         const resData = await response.json();
-        console.log(resData);
         if (resData.status === true) {
           const id = resData.user_id;
           const role = resData.role;

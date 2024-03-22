@@ -37,7 +37,8 @@ export default function AuthForm({ signup }) {
         const id = data.id;
         const role = data.role;
         const full_name = data.full_name;
-        toast.success(signup ? "Welcome to UPOUQU" :"Welcome back to UPOUQU!", {
+        const dp_url = data.dp_url
+        toast.success(signup ? `Hello ${data.full_name}, Welcome to UPOUQU` :`Hello ${data.full_name}, Welcome back to UPOUQU!`, {
           position: "bottom-center",
           autoClose: 4000,
           // hideProgressBar: false,
@@ -48,7 +49,7 @@ export default function AuthForm({ signup }) {
           theme: "light",
           transition: Bounce,
         });
-        dispatch(handleLogin({ id, role, full_name }));
+        dispatch(handleLogin({ id, role, full_name, dp_url }));
         navigate("/");
       }
     }

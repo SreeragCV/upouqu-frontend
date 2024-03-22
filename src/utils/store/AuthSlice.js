@@ -8,6 +8,7 @@ const authSlice = createSlice({
     user_id: null,
     role: null,
     full_name: null,
+    dp_url : null
   },
   reducers: {
     handleLogin(state, action) {
@@ -16,6 +17,7 @@ const authSlice = createSlice({
       state.user_id = action.payload.id;
       state.role = action.payload.role;
       state.full_name = action.payload.full_name;
+      state.dp_url = action.payload.dp_url
     },
     handleLogout(state) {
       state.isLoggedIn = false;
@@ -23,6 +25,7 @@ const authSlice = createSlice({
       state.user_id = null;
       state.role = null;
       state.full_name = null;
+      state.image_url = null
       localStorage.removeItem("token");
     },
     handleVerify(state, action) {
@@ -31,6 +34,7 @@ const authSlice = createSlice({
       state.user_id = action.payload.id;
       state.role = action.payload.role;
       state.full_name = action.payload.full_name;
+      state.dp_url = action.payload.dp_url
     },
   },
 });

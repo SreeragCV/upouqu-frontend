@@ -188,7 +188,7 @@ function Header() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar src="/broken-image.jpg" />
+                  <Avatar style={{width:'55px'}} src={data.dp_url ? data.dp_url : "/broken-image.jpg"} />
                 </IconButton>
               </Tooltip>
               <Menu

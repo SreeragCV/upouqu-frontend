@@ -44,11 +44,13 @@ function App() {
           dispatch(handleLogout());
         }
         const resData = await response.json();
+        console.log(resData);
         if (resData.status === true) {
           const id = resData.user_id;
           const role = resData.role;
           const full_name = resData.full_name;
-          dispatch(handleVerify({ id, role, full_name }));
+          const dp_url = resData.dp_url;
+          dispatch(handleVerify({ id, role, full_name, dp_url }));
         } else {
           dispatch(handleLogout());
         }

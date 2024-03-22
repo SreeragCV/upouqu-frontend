@@ -30,7 +30,6 @@ function Profile() {
             token: token,
           },
         });
-        console.log(response);
         let errors = {}
         if (response.status === 500) {
           errors.title = 'ERROR!!!!'
@@ -47,7 +46,8 @@ function Profile() {
         }
 
         const resData = await response.json();
-        setFetchUserData(resData);
+    
+        setFetchUserData(resData.existingUser);
       };
       fetchUser();
     } catch (e) {
@@ -58,6 +58,8 @@ function Profile() {
   if(error && error.message && error.title){
     return <CustomError title={error.title} message={error.message}/>
   }
+
+  console.log(fetchUserData);
 
   return (
     <div>

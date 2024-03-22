@@ -10,7 +10,7 @@ function SearchInput() {
 			<input
 				type='text'
 				placeholder='Search…'
-				className='input input-bordered px-3 py-1 rounded-full'
+				className='input input-bordered px-3 bg-slate-700 text-white py-1 rounded-full'
 				// value={search}
 				// onChange={(e) => setSearch(e.target.value)}
 			/>

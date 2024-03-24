@@ -1,4 +1,4 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import Books from "./pages/Books.jsx";
 import Contribute from "./pages/Contribute.jsx";
@@ -29,7 +29,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 
 function App() {
   const dispatch = useDispatch();
-  const isVerified = useSelector((state) => state.auth.isVerified);
+  const {isVerified, role} = useSelector((state) => state.auth);
   const checkAuthenticated = useCallback(() => {
     try {
       const token = localStorage.getItem("token");
@@ -65,6 +65,8 @@ function App() {
     checkAuthenticated();
   }, []);
 
+  console.log("isVerified", isVerified);
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -83,11 +85,11 @@ function App() {
         },
         {
           path: "contribute",
-          element: <Contribute />,
+          element: isVerified ? <Contribute/> : <Navigate to={'/redirect'}/>,
         },
         {
           path: "login",
-          element: <Login />,
+          element: isVerified ? <Navigate to={'/'}/> : <Login />,
           action: loginAction,
         },
         {
@@ -96,12 +98,12 @@ function App() {
         },
         {
           path: "signup",
-          element: <Signup />,
+          element:  isVerified ? <Navigate to={'/'}/> : <Signup />,
           action: signUpAction,
         },
         {
           path: "user/:id",
-          element: <Profile />,
+          element: <Profile/>,
         },
         {
           path: "books/:id",
@@ -113,11 +115,11 @@ function App() {
         },
         {
           path: "books/:id/read",
-          element: <PdfViewer/>
+          element: isVerified ? <PdfViewer/> : <Navigate to={'/redirect'}/>
         },
         {
           path: "messages",
-          element: <ChatHome/>
+          element: isVerified ? <ChatHome/> : <Navigate to={'/redirect'}/>
         },
         {
           path: "redirect",

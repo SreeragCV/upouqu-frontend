@@ -26,12 +26,8 @@ export default function AuthForm({ signup }) {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
-  // console.log(isSubmitting);
-  // console.log(data);
-  // console.log(verify);
-
   useEffect(() => {
-    if (!verify.isVerified) {
+  
       //verifying if user already logged in
       if (data && data.id && token) {
         const id = data.id;
@@ -50,11 +46,9 @@ export default function AuthForm({ signup }) {
           transition: Bounce,
         });
         dispatch(handleLogin({ id, role, full_name, dp_url }));
-        navigate("/");
       }
-    }
-  }, [verify, data, token]);
-
+    }, [verify, data, token]);
+    
   const [enteredValues, setEnteredValues] = useState({
     full_name: "",
     username: "",

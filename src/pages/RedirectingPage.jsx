@@ -6,7 +6,7 @@ function RedirectingPage() {
       <div
         style={{ textAlign: "center", fontWeight: "bolder", margin: "250px", fontSize: "26px" }}
       >
-        <h1>You must login to read or contribute books..</h1>
+        <h1>You must login to chat, read or contribute books..</h1>
         <Link style={{ color: "rgb(179, 140, 90)" }} to="/login">
           Login
         </Link>

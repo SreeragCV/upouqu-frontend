@@ -5,15 +5,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { addConversation } from "../../utils/store/chatSlice";
 
 function MessageContainer() {
-  const selectedConversation = useSelector(
-    (state) => state.chat.selectedConversation
+  const {selectedConversation, messages} = useSelector(
+    (state) => state.chat
   );
 
   const dispatch = useDispatch()
 
   useEffect(() => {
 	return () => dispatch(addConversation({conversation: null}))
-  }, [])
+  }, [addConversation])
 
   return (
     <div className="md:min-w-[450px] flex flex-col bg-stone-100 p-3">

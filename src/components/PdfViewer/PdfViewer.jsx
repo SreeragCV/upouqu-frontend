@@ -7,6 +7,7 @@ import classes from "./PdfViewer.module.css";
 function PdfViewer() {
   const [numPages, setNumPages] = useState(null);
   const [data, setData] = useState("");
+  
 
   const params = useParams();
 

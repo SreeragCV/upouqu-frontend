@@ -1,13 +1,14 @@
 import React from "react";
 import Conversation from "./Conversation";
 import useGetConversation from "../../hooks/useGetConversation";
+import useSendMessage from "../../hooks/useSendMessage";
 
 function Conversations() {
   const { conversations, loading, error } = useGetConversation();
-
+  
   return (
     <div className="py-2 flex flex-col overflow-auto">
-      {conversations.length > 0 &&
+      {conversations && conversations.length > 0 &&
         conversations.map((conversation, idx) => (
           <>
             <Conversation

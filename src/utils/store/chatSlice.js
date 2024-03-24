@@ -20,7 +20,7 @@ const chatSlice = createSlice({
       state.selectedConversation = action.payload.conversation;
     },
     addMessage(state, action) {
-      state.messages = action.payload.messages;
+      state.messages = action.payload.message
     },
   },
 });

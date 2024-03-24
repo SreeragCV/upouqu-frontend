@@ -11,16 +11,6 @@ function Profile() {
   const id = params.id;
   const [fetchUserData, setFetchUserData] = useState({});
   const [error, setError] = useState();
-  const isVerified = useSelector((state) => state.auth.isVerified)
-  const states = useSelector((state) => state.auth)
-
-  console.log(states);
-
-  if(!isVerified){
-    throw json({
-      message: 'Error Buddy'
-    }, {status: 401})
-  }
 
   useEffect(() => {
     try {

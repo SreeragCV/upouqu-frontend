@@ -1,17 +1,10 @@
 import React, { useEffect } from "react";
 import AuthForm from "../components/AuthForm/AuthForm";
-import { json, useNavigate } from "react-router-dom";
+import { json } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 function Signup() {
   const isVerified = useSelector((state) => state.auth.isVerified);
-  const navigate = useNavigate();
-
-  useEffect(()=>{
-    if (isVerified) {
-      navigate("/");
-    }
-  }, [])
 
   return (
     <div>
@@ -52,6 +45,5 @@ export async function action({ request, params }) {
   const token = response.headers.get('Authorization');
   localStorage.setItem('token', token)
   const resData = await response.json();
-  console.log(resData);
   return resData;
 }

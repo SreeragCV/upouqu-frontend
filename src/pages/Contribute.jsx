@@ -5,14 +5,7 @@ import BookForm from "../components/BookForm/BookForm";
 
 function Contribute() {
   const data = useSelector((state) => state.auth);
-  const navigate = useNavigate();
   const isVerified = data.isVerified;
-
-  useEffect(() => {
-    if (!isVerified) {
-      navigate("/redirect");
-    }
-  }, [data]);
 
   return (
     <div>

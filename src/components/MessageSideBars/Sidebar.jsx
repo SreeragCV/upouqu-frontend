@@ -8,7 +8,6 @@ function Sidebar() {
     <SearchInput/>
     <div className='divide-red-50'></div>
     <Conversations />
-    {/* <LogoutButton /> */}
 </div>
   )
 }

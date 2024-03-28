@@ -5,11 +5,11 @@ import { ToastContainer } from "react-toastify";
 
 function RootLayout() {
   return (
-    <div>
+    <>
       <Header />
       <ToastContainer />
       <Outlet />
-    </div>
+    </>
   );
 }
 

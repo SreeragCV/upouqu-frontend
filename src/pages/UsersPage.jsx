@@ -7,6 +7,7 @@ import UserList from "../components/UserList/UserList";
 function UsersPage() {
   const verifyAdmin = useSelector((state) => state.auth.role);
   const [fetchUser, setFetchUser] = useState("");
+  const [error, setError] = useState();
 
   if (verifyAdmin === "user" || null) {
     return <CustomError />;
@@ -26,10 +27,16 @@ function UsersPage() {
 
     fetchAllUserData()
       .then((res) => setFetchUser(res))
-      .catch((e) => console.log(e));
+      .catch((e) => setError(e));
   }, []);
-  
-  return <div>{verifyAdmin === "super-admin" && <UserList users={fetchUser} />}</div>;
+
+  if (error) {
+    return <CustomError />;
+  }
+
+  return (
+    <div>{verifyAdmin === "super-admin" && !error && <UserList users={fetchUser} />}</div>
+  );
 }
 
 export default UsersPage;

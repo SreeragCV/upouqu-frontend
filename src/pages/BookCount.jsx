@@ -6,6 +6,7 @@ import axios from "axios";
 function BookCount() {
   const verifyAdmin = useSelector((state) => state.auth.role);
   const [totalBookCount, setTotalBookCount] = useState("");
+  const [error, setError] = useState();
 
   if (verifyAdmin === "user" || null) {
     return <CustomError />;
@@ -25,12 +26,18 @@ function BookCount() {
       .then((res) => {
         setTotalBookCount(res.data.rows[0].count);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => setError(e));
   }, []);
 
-  console.log(totalBookCount);
-
-  return <div className="mt-28 text-slate-950 text-center text-8xl">{totalBookCount}</div>;
+  if (error) {
+    return <CustomError />;
+  }
+  
+  return (
+    <div className="mt-28 text-slate-950 text-center text-8xl">
+      {totalBookCount}
+    </div>
+  );
 }
 
 export default BookCount;

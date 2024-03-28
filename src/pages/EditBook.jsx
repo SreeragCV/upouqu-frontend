@@ -11,28 +11,30 @@ function EditBook() {
   const id = params.id;
   const [fetchBookDetails, setFetchBookDetails] = useState("");
   const data = useSelector((state) => state.auth);
-  console.log(fetchBookDetails);
+  const [error, setError] = useState();
 
   useEffect(() => {
-    try {
-      const callingBookDetails = async () => {
+    const callingBookDetails = async () => {
+      try {
         const response = await axios.get(`http://localhost:8080/books/${id}`);
         const book = response.data.bookDetails;
         setFetchBookDetails(book);
-      };
-      callingBookDetails();
-    } catch (e) {
-      console.log(e);
-    }
+      } catch (e) {
+        setError(e);
+        console.log(e);
+      }
+    };
+    callingBookDetails();
   }, []);
-  
+
   if (!data.isVerified && data.user_id !== fetchBookDetails.user_id) {
     return <CustomError title="An Error Occured" message="Page not found" />;
   }
 
   return (
     <div className="my-24 mx-4">
-      {data.isVerified && data.user_id === fetchBookDetails.user_id && (
+      {error && <CustomError/>}
+      {data.isVerified && data.user_id === fetchBookDetails.user_id && !error && (
         <BookEditForm value={fetchBookDetails} />
       )}
     </div>

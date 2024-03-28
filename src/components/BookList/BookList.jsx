@@ -27,7 +27,6 @@ function BookList({ title }) {
       fetchBooks()
         .then((res) => setFetchBooks(res))
         .catch((e) => {
-          setIsLoading(false);
           setError(e);
         })
         .finally(() => setIsLoading(false));

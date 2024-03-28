@@ -56,7 +56,7 @@ function Header() {
   }
 
   return (
-    <AppBar position="fixed" sx={{ background: "black" }}>
+    <AppBar position="sticky" sx={{ background: "black" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Link to="/" style={{ textDecoration: "none" }}>

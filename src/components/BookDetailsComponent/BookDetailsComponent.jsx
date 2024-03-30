@@ -57,8 +57,8 @@ function BookDetailsComponent({ bookDetails }) {
 
   return (
     <>
-      <Modal
-        className="mt-24 p-10 text-center text-xl"
+      {showModal && <Modal
+        className="text-center text-xl"
         open={showModal}
         onClose={removModal}
       >
@@ -69,7 +69,7 @@ function BookDetailsComponent({ bookDetails }) {
         <p className=" text-cyan-800 p-1 cursor-pointer" onClick={handleLogin}>
           login here
         </p>
-      </Modal>
+      </Modal>}
       {bookDetails && (
         <div className={classes.top}>
           <div className={classes.container}>

@@ -18,7 +18,7 @@ const genres = [
 
 function Books() {
   return (
-    <div className="mt-24">
+    <div>
       {genres.map((genre) => {
         return <BookList key={genre.title} title={genre.title} />;
       })}

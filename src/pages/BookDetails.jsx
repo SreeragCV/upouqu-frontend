@@ -31,7 +31,7 @@ function BookDetails() {
   
   return (
     <>
-      <div className=" mt-28">
+      <div>
         {fetchBookDetails && (
           <BookDetailsComponent bookDetails={fetchBookDetails} />
         )}

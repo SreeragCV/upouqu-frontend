@@ -15,7 +15,7 @@ function CustomError({ title, message }) {
       }}
       className="h-screen pt-12"
     >
-      <div className="mt-28 text-center">
+      <div className="text-center">
         <PageContent title={title ? title : "An Error Occured!!!"}>
           {message ? message : "Please try again!"}
         </PageContent>

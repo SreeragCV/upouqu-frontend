@@ -126,9 +126,10 @@ export default function AuthForm({ signup }) {
       >
         <Card
           sx={{
-            width: signup ? 445 : 370,
+            width: signup ? 420 : 370,
+            marginX: "10px",
             justifyContent: "center",
-            marginTop: signup ? "11.4rem" : "16rem",
+            marginTop: signup ? "11rem" : "15rem",
             borderRadius: "18px",
             boxShadow: "0px 0px 26px 5px  rgba(0, 255, 183, 0.508);",
           }}

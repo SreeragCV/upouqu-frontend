@@ -20,7 +20,7 @@ import humorImg from '../assets/genres/humor.jpg'
 
 function GenresPage() {
   return (
-    <div className='mt-28'>
+    <div>
       <GenreList title="Horror" image={horrorImg} />
       <GenreList title="Philosophy" image={philosophyImg} />
       <GenreList title="Psychology" image={pschologyImg} />

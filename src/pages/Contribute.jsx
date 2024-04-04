@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import BookForm from "../components/BookForm/BookForm";
+import withAuth from "../HOC/withAuth";
 
 function Contribute() {
   const data = useSelector((state) => state.auth);
   const isVerified = data.isVerified;
+
 
   return (
     <div>
@@ -18,4 +19,4 @@ function Contribute() {
   );
 }
 
-export default Contribute;
+export default withAuth(Contribute);

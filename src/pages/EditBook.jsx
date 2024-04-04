@@ -5,6 +5,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import CustomError from "./CustomError";
 import BookEditForm from "../components/BookEditForm/BookEditForm";
+import withAuth from "../HOC/withAuth";
 
 function EditBook() {
   const params = useParams();
@@ -33,12 +34,12 @@ function EditBook() {
 
   return (
     <div className="my-24 mx-4">
-      {error && <CustomError/>}
-      {data.isVerified && data.user_id === fetchBookDetails.user_id && !error && (
-        <BookEditForm value={fetchBookDetails} />
-      )}
+      {error && <CustomError />}
+      {data.isVerified &&
+        data.user_id === fetchBookDetails.user_id &&
+        !error && <BookEditForm value={fetchBookDetails} />}
     </div>
   );
 }
 
-export default EditBook;
+export default withAuth(EditBook);

@@ -1,7 +1,7 @@
 import React from "react";
 import Sidebar from "../components/MessageSideBars/Sidebar";
-import Modal from "../components/Modal/Modal";
 import MessageContainer from "../components/Messages/MessageContainer";
+import withAuth from "../HOC/withAuth";
 
 function ChatHome() {
   return (
@@ -14,4 +14,4 @@ function ChatHome() {
   );
 }
 
-export default ChatHome;
+export default withAuth(ChatHome);

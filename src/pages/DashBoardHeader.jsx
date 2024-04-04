@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom'
 import DashBoardNavigation from '../components/DashBoardNavigation/DashBoardNavigation'
 import { useSelector } from 'react-redux'
 import CustomError from './CustomError';
+import withAuth from '../HOC/withAuth';
 
 function DashBoardHeader() {
 
@@ -20,4 +21,4 @@ function DashBoardHeader() {
   )
 }
 
-export default DashBoardHeader
+export default withAuth(DashBoardHeader)

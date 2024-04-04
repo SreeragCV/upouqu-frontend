@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import CustomError from "./CustomError";
 import axios from "axios";
 import UserList from "../components/UserList/UserList";
+import withAuth from "../HOC/withAuth";
 
 function UsersPage() {
   const verifyAdmin = useSelector((state) => state.auth.role);
@@ -39,4 +40,4 @@ function UsersPage() {
   );
 }
 
-export default UsersPage;
+export default withAuth(UsersPage);

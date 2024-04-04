@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import CustomError from "./CustomError";
 import axios from "axios";
+import withAuth from "../HOC/withAuth";
 
 function BookCount() {
   const verifyAdmin = useSelector((state) => state.auth.role);
@@ -40,4 +41,4 @@ function BookCount() {
   );
 }
 
-export default BookCount;
+export default withAuth(BookCount);

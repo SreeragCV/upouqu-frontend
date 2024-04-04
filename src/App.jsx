@@ -1,4 +1,8 @@
-import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom";
+import {
+  Navigate,
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import Books from "./pages/Books.jsx";
 import Contribute from "./pages/Contribute.jsx";
@@ -21,6 +25,7 @@ import BookCount from "./pages/BookCount.jsx";
 import EditBook from "./pages/EditBook.jsx";
 import PdfViewer from "./components/pdfViewer/PdfViewer.jsx";
 import ChatHome from "./pages/ChatHome.jsx";
+import ReadBook from "./pages/ReadBook.jsx";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.js",
@@ -29,7 +34,10 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 
 function App() {
   const dispatch = useDispatch();
-  const {isVerified, role} = useSelector((state) => state.auth);
+  const { isVerified, role } = useSelector((state) => state.auth);
+
+  console.log("verified:", isVerified);
+
   const checkAuthenticated = useCallback(() => {
     try {
       const token = localStorage.getItem("token");
@@ -40,7 +48,7 @@ function App() {
           },
         });
         if (!response.ok) {
-          console.log("some error occured");
+          console.log('Logged out');
           dispatch(handleLogout());
         }
         const resData = await response.json();
@@ -59,20 +67,16 @@ function App() {
       console.log("server error.....!!!", e);
       dispatch(handleLogout());
     }
-  }, [dispatch]);
+  }, [dispatch, isVerified]);
 
   useEffect(() => {
     checkAuthenticated();
   }, []);
 
-  console.log("isVerified", isVerified);
-
   const router = createBrowserRouter([
     {
       path: "/",
-      element: (
-          <RootLayout />
-      ),
+      element: <RootLayout />,
       errorElement: <Errors />,
       children: [
         {
@@ -85,11 +89,11 @@ function App() {
         },
         {
           path: "contribute",
-          element: isVerified ? <Contribute/> : <Navigate to={'/redirect'}/>,
+          element: isVerified ? <Contribute /> : <Navigate to={"/redirect"} />,
         },
         {
           path: "login",
-          element: isVerified ? <Navigate to={'/'}/> : <Login />,
+          element: isVerified ? <Navigate to={"/"} /> : <Login />,
           action: loginAction,
         },
         {
@@ -98,12 +102,12 @@ function App() {
         },
         {
           path: "signup",
-          element:  isVerified ? <Navigate to={'/'}/> : <Signup />,
+          element: isVerified ? <Navigate to={"/"} /> : <Signup />,
           action: signUpAction,
         },
         {
           path: "user/:id",
-          element: <Profile/>,
+          element: <Profile />,
         },
         {
           path: "books/:id",
@@ -115,11 +119,11 @@ function App() {
         },
         {
           path: "books/:id/read",
-          element: isVerified ? <PdfViewer/> : <Navigate to={'/redirect'}/>
+          element: isVerified ? <ReadBook /> : <Navigate to={"/redirect"} />,
         },
         {
           path: "messages",
-          element: isVerified ? <ChatHome/> : <Navigate to={'/redirect'}/>
+          element: isVerified ? <ChatHome /> : <Navigate to={"/redirect"} />,
         },
         {
           path: "redirect",

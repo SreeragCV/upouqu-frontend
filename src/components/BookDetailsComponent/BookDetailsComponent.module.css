@@ -32,6 +32,17 @@
   border-radius: 10px;
 }
 
+.author{
+  display: flex;
+  align-items: center;
+}
+
+.author img{
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+}
+
 .image {
   width: 430px;
   height: 520px;

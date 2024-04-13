@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import classes from "./BookDetailsComponent.module.css";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Modal from "../Modal/Modal";
+import img from "../../assets/chat.png";
 
 function BookDetailsComponent({ bookDetails }) {
   const [showMore, setShowMore] = useState(false);
@@ -57,19 +58,28 @@ function BookDetailsComponent({ bookDetails }) {
 
   return (
     <>
-      {showModal && <Modal
-        className="text-center text-xl"
-        open={showModal}
-        onClose={removModal}
-      >
-        <span className=" absolute top-2 right-3 cursor-pointer" onClick={removModal}>
-          &times;
-        </span>
-        <h3 className="mb-1">You must login to read books...</h3>
-        <p className=" text-cyan-800 p-1 cursor-pointer" onClick={handleLogin}>
-          login here
-        </p>
-      </Modal>}
+      {showModal && (
+        <Modal
+          className="text-center text-xl justify-center items-center"
+          open={showModal}
+        >
+          <span
+            className="absolute font-extrabold top-2 right-3 cursor-pointer"
+            onClick={removModal}
+          >
+            &times;
+          </span>
+          <div className=" mt-32 font-medium text-2xl">
+            <h3 className="mb-1">You must login to read books...</h3>
+            <p
+              className=" text-cyan-800 p-1 cursor-pointer"
+              onClick={handleLogin}
+            >
+              login here
+            </p>
+          </div>
+        </Modal>
+      )}
       {bookDetails && (
         <div className={classes.top}>
           <div className={classes.container}>
@@ -79,7 +89,10 @@ function BookDetailsComponent({ bookDetails }) {
                 src={bookDetails.image_url}
                 alt=""
               />
-              <p className={classes.full_name}>by {bookDetails.full_name}</p>
+              <div className={classes.author}>
+                <p className={classes.full_name}>by {bookDetails.full_name}</p>
+                <img src={img} alt="" />
+              </div>
               <div className={classes.btnDiv}>
                 {data && data.isVerified ? (
                   <button

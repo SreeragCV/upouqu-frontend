@@ -16,7 +16,7 @@ function Modal({ children, open, className = "", onClose }) {
   }, [open]);
 
   return createPortal(
-    <dialog onClose={onClose} ref={dialog} className={`${classes.modal} ${className}`}>
+    <dialog onClose={onClose} onKeyDown={onClose} ref={dialog} className={`${classes.modal} ${className}`}>
       {children}
     </dialog>,
     document.getElementById("modal")
